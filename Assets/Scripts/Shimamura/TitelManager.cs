@@ -39,6 +39,7 @@ public class TitelManager : MonoBehaviour
     {
         _move1Pressed = true;
         CheckBothPressed();
+
     }
 
     private void OnMove2Started(InputAction.CallbackContext context)    //プレイヤー2がのボタンを押したらtureになる

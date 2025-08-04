@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 1, g: 0.022012413, b: 0.022012413, a: 0.5}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
 --- !u!1 &616452228
@@ -1355,11 +1355,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ede9853c0b104458a9c51cb857cf85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliders:
+  _sliders:
   - {fileID: 565971217}
   - {fileID: 426600896}
   - {fileID: 1694734607}
-  outlines:
+  _outlines:
   - {fileID: 565971218}
   - {fileID: 426600897}
   - {fileID: 1694734608}
@@ -1367,7 +1367,7 @@ MonoBehaviour:
   BGMSlider: {fileID: 565971217}
   SESlider: {fileID: 426600896}
   MasterSlider: {fileID: 1694734607}
-  firstSelect: {fileID: 565971215}
+  FirstSelect: {fileID: 565971215}
 --- !u!1 &1366366122
 GameObject:
   m_ObjectHideFlags: 0
