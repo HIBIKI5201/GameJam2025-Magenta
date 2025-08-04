@@ -1,60 +1,89 @@
-﻿using UnityEngine;
+using UnityEngine;
 
+/// <summary>
+/// ホーミング弾の挙動を制御します。
+/// </summary>
 public class HomingBulletController : MonoBehaviour
 {
-    [SerializeField]
-    private float _rotateSpeed = 20;
-    [SerializeField]
-    private float _moveSpeed = 1;
-    [SerializeField]
-    private float _damage = 1;
-    [SerializeField]
-    private float _lifeTime = 5f;
+    // --- シリアライズされたフィールド ---
+    [Header("ホーミング弾の回転速度")]
+    [SerializeField] private float _rotationSpeed = 20f;
 
+    [Header("ホーミング弾の移動速度")]
+    [SerializeField] private float _movementSpeed = 1f;
+
+    [Header("ホーミング弾が与えるダメージ量")]
+    [SerializeField] private float _damageAmount = 1f;
+
+    [Header("ホーミング弾の生存時間")]
+    [SerializeField] private float _lifetime = 5f;
+
+    // --- privateフィールド ---
     private Transform _owner;
     private Transform _target;
 
-    public void Init(Transform self, Transform target)
+    /// <summary>
+    /// ホーミング弾を初期化します。
+    /// </summary>
+    /// <param name="ownerTransform">この弾を発射したオブジェクトのTransform。</param>
+    /// <param name="targetTransform">ホーミング対象のオブジェクトのTransform。</param>
+    public void Initialize(Transform ownerTransform, Transform targetTransform)
     {
-        _owner = self;
-        _target = target;
+        _owner = ownerTransform;
+        _target = targetTransform;
 
-        Destroy(gameObject, _lifeTime); // 指定時間後に弾丸を破棄
+        // 指定時間後に弾を破棄します。
+        Destroy(gameObject, _lifetime);
     }
 
-    void Update()
+    /// <summary>
+    /// Unityのライフサイクルメソッド。毎フレーム呼び出されます。
+    /// </summary>
+    private void Update()
     {
+        // ターゲットが設定されていない場合は処理を中断します。
         if (_target == null) return;
 
-        // 対象への方向ベクトル
-        Vector2 direction = (_target.position - transform.position).normalized;
+        // ターゲットへの方向ベクトルを計算します。
+        Vector2 directionToTarget = (_target.position - transform.position).normalized;
 
-        // 現在の角度と目標角度を計算
-        float angleToTarget = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // 現在の角度とターゲットへの目標角度を計算します。
+        float angleToTarget = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
-        // 現在の角度
-        float currentAngle = transform.eulerAngles.z;
+        // 現在のZ軸の回転角度を取得します。
+        float currentAngleZ = transform.eulerAngles.z;
 
-        // 補間して回転
-        float angle = Mathf.MoveTowardsAngle(currentAngle, angleToTarget, _rotateSpeed * Time.deltaTime);
+        // 目標角度へスムーズに回転させます。
+        float interpolatedAngle = Mathf.MoveTowardsAngle(currentAngleZ, angleToTarget, _rotationSpeed * Time.deltaTime);
 
-        // 回転を適用（Z軸回転のみ）
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        // 計算した回転を適用します（Z軸回転のみ）。
+        transform.rotation = Quaternion.Euler(0f, 0f, interpolatedAngle);
 
-        // right方向（＝ローカルX軸）に移動
-        transform.Translate(Vector3.right * _moveSpeed * Time.deltaTime, Space.Self);
+        // オブジェクトの右方向（ローカルX軸）に移動させます。
+        transform.Translate(Vector3.right * _movementSpeed * Time.deltaTime, Space.Self);
     }
 
+    /// <summary>
+    /// Unityのライフサイクルメソッド。他のColliderと接触した時に呼び出されます。
+    /// </summary>
+    /// <param name="other">接触したCollider。</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.attachedRigidbody.TryGetComponent(out Player_Main_System player)) return;
-
-        if (player.transform == _owner)
+        // 衝突相手にRigidbodyがアタッチされているか、かつPlayer_Main_Systemコンポーネントを持っているかを確認します。
+        if (other.attachedRigidbody == null || !other.attachedRigidbody.TryGetComponent(out Player_Main_System player))
         {
-            return; // 自分自身との衝突は無視
+            return;
         }
 
-        player.TakeDamage(_damage); // ダメージを与える
-        Destroy(gameObject); // 弾丸を破棄
+        // 弾の所有者と衝突したプレイヤーが同じであれば、衝突を無視します。
+        if (player.transform == _owner)
+        {
+            return;
+        }
+
+        // プレイヤーにダメージを与えます。
+        player.TakeDamage(_damageAmount);
+        // 弾を破棄します。
+        Destroy(gameObject);
     }
 }

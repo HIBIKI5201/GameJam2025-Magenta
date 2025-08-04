@@ -1,57 +1,74 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 /// <summary>
-/// ビーム弾を生成するクラス
+/// ビーム弾を生成するクラスです。
 /// </summary>
 [Serializable]
 public class BeamBulletGenerator : IBulletGenerator
 {
-    public float MoveSpeedScale => _moveSpeed;
+    // --- プロパティ ---
+    /// <summary>
+    /// この弾ジェネレーター使用時のプレイヤーの移動速度倍率を取得します。
+    /// </summary>
+    public float MoveSpeedScale => _movementSpeedScale;
 
-    // プレイヤーのTransform
-    Transform _self;
-    Transform _target;
-    // 生成するビーム弾のプレハブ
-    [SerializeField] BeamBulletController _bullet;
+    // --- シリアライズされたフィールド ---
+    [Header("ビーム弾のプレハブ")]
+    [SerializeField] private BeamBulletController _beamBulletPrefab;
 
-    [SerializeField]
-    float _interval = 0.1f; // ビーム弾の生成間隔
+    [Header("ビーム弾の生成間隔")]
+    [SerializeField] private float _shootInterval = 0.1f;
 
-    [SerializeField]
-    private float _moveSpeed = 1f; // 移動速度
-    float _timer; // タイマー
+    [Header("この弾ジェネレーター使用時のプレイヤーの移動速度倍率")]
+    [SerializeField] private float _movementSpeedScale = 1f;
 
-    public void Init(Transform self, Transform target)
+    // --- privateフィールド ---
+    private Transform _ownerTransform;
+    private Transform _targetTransform;
+    private float _shootTimer;
+
+    /// <summary>
+    /// 弾ジェネレーターを初期化します。
+    /// </summary>
+    /// <param name="ownerTransform">弾を発射するオブジェクトのTransform。</param>
+    /// <param name="targetTransform">ターゲットとなるオブジェクトのTransform。</param>
+    public void Initialize(Transform ownerTransform, Transform targetTransform)
     {
-        // プレイヤーのTransformを設定
-        _self = self;
-        // ターゲットのTransformを設定
-        _target = target;
+        _ownerTransform = ownerTransform;
+        _targetTransform = targetTransform;
     }
 
     /// <summary>
-    /// 毎フレームの更新処理
+    /// 弾ジェネレーターの更新処理です。毎フレーム呼び出されます。
     /// </summary>
-    /// <param name="deltaTime">前フレームからの経過時間</param>
+    /// <param name="deltaTime">前フレームからの経過時間。</param>
     public void Update(float deltaTime)
-	{
-        _timer += deltaTime;
-        // タイマーが生成間隔を超えたらビーム弾を生成
-        if (_timer >= _interval)
+    {
+        // 発射タイマーを更新します。
+        _shootTimer += deltaTime;
+
+        // タイマーが生成間隔を超えたらビーム弾を生成します。
+        if (_shootTimer >= _shootInterval)
         {
-            Shoot();
-            _timer = 0f; // タイマーをリセット
+            GenerateBullet();
+            _shootTimer = 0f; // タイマーをリセットします。
         }
     }
 
-    private void Shoot()
+    /// <summary>
+    /// ビーム弾を生成し、初期設定を行います。
+    /// </summary>
+    private void GenerateBullet()
     {
-        // ビーム弾を生成
-        BeamBulletController bullet = GameObject.Instantiate(_bullet, _self.position, Quaternion.identity);
-        // ターゲットの方向に向ける
-        Vector3 direction = (_target.position - _self.position).normalized;
-        bullet.transform.right = direction;
-        bullet.Init(_self);
+        // ビーム弾を生成します。
+        BeamBulletController bullet = GameObject.Instantiate(_beamBulletPrefab, _ownerTransform.position, Quaternion.identity);
+        
+        // ターゲットへの方向を計算し、ビームの向きを設定します。
+        Vector3 directionToTarget = (_targetTransform.position - _ownerTransform.position).normalized;
+        bullet.transform.right = directionToTarget;
+        
+        // ビーム弾を初期化します。
+        bullet.Initialize(_ownerTransform);
     }
 }

@@ -1,62 +1,81 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// プレイヤーの入力を制御するクラス
+/// プレイヤーの入力（移動など）を処理します。
 /// </summary>
 public class Player_Controller : MonoBehaviour
 {
-    [SerializeField]
-    private string _moveInputName; // 移動入力アクション名
+    // --- シリアライズされたフィールド ---
+    [Header("移動入力アクション名")]
+    [SerializeField] private string _moveInputName;
 
-    // 移動アクション
+    // --- privateフィールド ---
     private InputAction _moveAction;
-
-    // 移動入力
-    private Vector2 _move_Input;
+    private Vector2 _currentMoveInput;
 
     /// <summary>
-    /// アクションを設定する
+    /// このコントローラーを初期化し、入力アクションを設定します。
     /// </summary>
-    /// <param name="input">プレイヤーインプット</param>
-    /// <param name="moveInputName">移動入力アクション名</param>
-    public void Init(PlayerInput input)
+    /// <param name="playerInput">使用するPlayerInputコンポーネント。</param>
+    public void Initialize(PlayerInput playerInput)
     {
-        // 入力がnullの場合は処理しない
-        if (input == null) return;
-        // アクション名がnullまたは空の場合はエラーログを出力
-        if (string.IsNullOrEmpty(_moveInputName))
+        // PlayerInputがnullの場合は処理を中断します。
+        if (playerInput == null)
         {
-            Debug.LogError("Move Input Action Name is Null");
+            Debug.LogError("PlayerInputが設定されていません。", this);
             return;
         }
 
-        // アクションアセットを取得
-        InputActionAsset actions = input.actions;
+        // 移動入力アクション名が設定されていない場合はエラーログを出力します。
+        if (string.IsNullOrEmpty(_moveInputName))
+        {
+            Debug.LogError("移動入力アクション名が設定されていません。", this);
+            return;
+        }
 
-        // 移動アクションを取得
+        // アクションアセットから移動アクションを取得します。
+        InputActionAsset actions = playerInput.actions;
         _moveAction = actions[_moveInputName];
 
-        // アクションにコールバックを登録
-        _moveAction.performed += SetMove;
-        _moveAction.canceled += SetMove;
+        // アクションのPerformedとCanceledイベントにコールバックを登録します。
+        _moveAction.performed += HandleMoveInput;
+        _moveAction.canceled += HandleMoveInput;
+
+        // アクションを有効化します。
+        _moveAction.Enable();
     }
 
     /// <summary>
-    /// 移動入力を設定する
+    /// Unityのライフサイクルメソッド。コンポーネントが無効になった時に呼び出されます。
     /// </summary>
-    /// <param name="context">入力コンテキスト</param>
-    private void SetMove(InputAction.CallbackContext context)
+    private void OnDisable()
     {
-        _move_Input = context.ReadValue<Vector2>();
+        // アクションが有効であれば、コールバックを解除し、アクションを無効化します。
+        if (_moveAction != null)
+        {
+            _moveAction.performed -= HandleMoveInput;
+            _moveAction.canceled -= HandleMoveInput;
+            _moveAction.Disable();
+        }
     }
 
     /// <summary>
-    /// 移動入力を取得する
+    /// 移動入力アクションのコールバックを処理します。
     /// </summary>
-    /// <returns>移動入力</returns>
-    public Vector2 GetMove()
+    /// <param name="context">入力コンテキスト。</param>
+    private void HandleMoveInput(InputAction.CallbackContext context)
     {
-        return _move_Input;
+        // 入力値を読み込み、現在の移動入力として保存します。
+        _currentMoveInput = context.ReadValue<Vector2>();
+    }
+
+    /// <summary>
+    /// 現在の移動入力を取得します。
+    /// </summary>
+    /// <returns>現在の移動入力ベクトル。</returns>
+    public Vector2 GetMoveInput()
+    {
+        return _currentMoveInput;
     }
 }

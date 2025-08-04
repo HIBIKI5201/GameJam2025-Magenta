@@ -1,41 +1,41 @@
 using System;
 
 /// <summary>
-/// タグの種類を定義する列挙型
+/// タグの種類を定義する列挙型です。
 /// </summary>
 [Flags]
 public enum TagsEnum : int
 {
     /// <summary>
-    /// なし
+    /// タグが指定されていない状態を示します。
     /// </summary>
     None = 1 << 0,
     /// <summary>
-    /// タグなし
+    /// タグが設定されていないオブジェクトを示します。
     /// </summary>
     Untagged = 1 << 1,
     /// <summary>
-    /// リスポーン
+    /// リスポーン地点を示します。
     /// </summary>
     Respawn = 1 << 2,
     /// <summary>
-    /// フィニッシュ
+    /// ゴール地点を示します。
     /// </summary>
     Finish = 1 << 3,
     /// <summary>
-    /// エディタ専用
+    /// エディタでのみ使用されるオブジェクトを示します。
     /// </summary>
     EditorOnly = 1 << 4,
     /// <summary>
-    /// メインカメラ
+    /// メインカメラを示します。
     /// </summary>
     MainCamera = 1 << 5,
     /// <summary>
-    /// プレイヤー
+    /// プレイヤーオブジェクトを示します。
     /// </summary>
     Player = 1 << 6,
     /// <summary>
-    /// ゲームコントローラー
+    /// ゲームの全体的な制御を行うオブジェクトを示します。
     /// </summary>
     GameController = 1 << 7,
 }

@@ -1,10 +1,10 @@
 /// <summary>
-/// オーディオグループの種類を定義する列挙型
+/// オーディオグループの種類を定義する列挙型です。
 /// </summary>
 public enum AudioGroupTypeEnum : int
 {
     /// <summary>
-    /// なし
+    /// オーディオグループが指定されていない状態を示します。
     /// </summary>
     None = 0,
 }

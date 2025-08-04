@@ -159,9 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectInputActionName: 
-  _player_Controller: {fileID: 6510670903484693075}
-  _player_Movement: {fileID: 7831674445822876700}
-  player_Status: {fileID: -258959804395855032}
+  _playerController: {fileID: 6510670903484693075}
+  _playerMovement: {fileID: 7831674445822876700}
+  _playerStatus: {fileID: -258959804395855032}
   _bulletGenerators:
   - rid: 713893209644204320
   - rid: 713893209644204319
@@ -172,24 +172,24 @@ MonoBehaviour:
     - rid: 713893209644204319
       type: {class: BeamBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
-        _bullet: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
-        _interval: 4
-        _moveSpeed: 0.7
+        _beamBulletPrefab: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
+        _shootInterval: 0.1
+        _movementSpeedScale: 1
     - rid: 713893209644204320
       type: {class: SurroundBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
-        _bulletPrefab: {fileID: -6293472905211874275, guid: e21e4ca83110f6a4fb9f2b91d4650d3b, type: 3}
-        _interval: 0.8
-        _bulletCount: 3
-        _dist: 1
-        _lifeTime: 1.5
-        _moveSpeed: 1.5
+        _surroundBulletPrefab: {fileID: -6293472905211874275, guid: e21e4ca83110f6a4fb9f2b91d4650d3b, type: 3}
+        _shootInterval: 1
+        _numberOfBullets: 3
+        _spawnDistance: 0.1
+        _bulletLifetime: 1.5
+        _movementSpeedScale: 1
     - rid: 713893209644204461
       type: {class: HomingBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
-        _bulletPrefab: {fileID: 7740359617280864561, guid: 7698e777ddbcf3c4f830ca3d53fe4b9a, type: 3}
-        _interval: 1
-        _moveSpeed: 1
+        _homingBulletPrefab: {fileID: 7740359617280864561, guid: 7698e777ddbcf3c4f830ca3d53fe4b9a, type: 3}
+        _shootInterval: 0.5
+        _movementSpeedScale: 1
 --- !u!114 &7831674445822876700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,9 +202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdec4f0c4510e424886b0454039ed80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: e38682f9bfbd50246ade5cd2fce9c3d2, type: 2}
-  _rigidbody: {fileID: 442735243260811610}
-  _movement_Area: {x: 0, y: 0, z: 0}
+  _playerData: {fileID: 11400000, guid: e38682f9bfbd50246ade5cd2fce9c3d2, type: 2}
+  _playerRigidbody: {fileID: 442735243260811610}
+  _movementArea: {x: 0, y: 0, z: 0}
+  _movementAreaTransform: {fileID: 0}
 --- !u!114 &6510670903484693075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,8 +231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3266db53817eabe47b0f947ec2e31fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _now_hp: 0
-  _data: {fileID: 11400000, guid: e38682f9bfbd50246ade5cd2fce9c3d2, type: 2}
+  _playerData: {fileID: 11400000, guid: e38682f9bfbd50246ade5cd2fce9c3d2, type: 2}
+  _currentHealth: 0
 --- !u!54 &442735243260811610
 Rigidbody:
   m_ObjectHideFlags: 0

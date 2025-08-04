@@ -1,16 +1,42 @@
-﻿using UnityEngine;
+using UnityEngine;
 
+/// <summary>
+/// インゲーム開始時のシーケンスを管理します。
+/// </summary>
 public class IngameStartSequence : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerManager _playerManager;
+    // --- シリアライズされたフィールド ---
+    [Header("プレイヤーマネージャー")]
+    [SerializeField] private PlayerManager _playerManager;
 
+    /// <summary>
+    /// Unityのライフサイクルメソッド。オブジェクトの初期化時に呼び出されます。
+    /// </summary>
     private void Start()
     {
-        _playerManager.GeneratePlayer();
-        _playerManager.SetInput();
+        // ゲームの初期化処理を開始します。
+        InitializeGame();
+    }
 
-        var endSequence = GetComponent<IngameEndSequence>();
-        endSequence.RegisterPlayerManager(_playerManager);
+    /// <summary>
+    /// ゲームの初期化処理を実行します。
+    /// </summary>
+    private void InitializeGame()
+    {
+        // プレイヤーを生成し、初期化します。
+        _playerManager.InitializePlayers();
+        // プレイヤーの入力を有効にします。
+        _playerManager.EnablePlayerInput();
+
+        // IngameEndSequenceコンポーネントを取得し、PlayerManagerを登録します。
+        IngameEndSequence endSequence = GetComponent<IngameEndSequence>();
+        if (endSequence != null)
+        {
+            endSequence.SetPlayerManager(_playerManager);
+        }
+        else
+        {
+            Debug.LogError("IngameEndSequenceコンポーネントが見つかりません。", this);
+        }
     }
 }

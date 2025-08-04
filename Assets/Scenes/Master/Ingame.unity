@@ -418,6 +418,37 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &84477557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84477558}
+  m_Layer: 0
+  m_Name: BoundsPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &84477558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84477557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 455784015}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &455784014
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +480,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 84477558}
   - {fileID: 33063308}
   - {fileID: 1522247898}
   - {fileID: 2145738885}
@@ -496,9 +528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51dbd2bb967c7224d8761464df9b0e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movement_Area: {x: 14.75, y: 8, z: 0}
-  _movement_Area_Tran: {fileID: 33063308}
-  _players:
+  _movementArea: {x: 14.5, y: 6.5, z: 0}
+  _movementAreaTransform: {fileID: 84477558}
+  _playerSystems:
   - {fileID: 1522247899}
   - {fileID: 2145738886}
   _healthBars:
@@ -997,6 +1029,10 @@ PrefabInstance:
       propertyPath: _onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1532266737844418206, guid: 44c742741d230784d95537a6c6367f40, type: 3}
+      propertyPath: _movementAreaTransform
+      value: 
+      objectReference: {fileID: 33063308}
     - target: {fileID: 3087618355978034232, guid: 44c742741d230784d95537a6c6367f40, type: 3}
       propertyPath: m_Name
       value: Player_1
@@ -1196,7 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b3f33d87cdc764c903d9acfed44bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResultSceneName: Result
+  _resultSceneName: Result
 --- !u!1 &2024679665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,6 +1578,10 @@ PrefabInstance:
       propertyPath: _onHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1575130565462098006, guid: 164784a836a2f8a44a7de5b6180462ac, type: 3}
+      propertyPath: _movementAreaTransform
+      value: 
+      objectReference: {fileID: 33063308}
     - target: {fileID: 3044754493971213040, guid: 164784a836a2f8a44a7de5b6180462ac, type: 3}
       propertyPath: m_Name
       value: Player_2

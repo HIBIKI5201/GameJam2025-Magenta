@@ -24,7 +24,7 @@ public class Dev_SurroundBulletController : MonoBehaviour
 
         if (_timer <= 0f)
         {
-            _bulletGenerator.Shoot();
+            //_bulletGenerator.();
             _timer = _interval;
         }
     }

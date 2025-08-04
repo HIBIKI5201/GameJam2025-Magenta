@@ -1,82 +1,100 @@
-﻿using SymphonyFrameWork.Attribute;
+using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 /// <summary>
-/// プレイヤーの移動を管理するクラス
+/// プレイヤーの移動を管理します。
 /// </summary>
 public class Player_Movement : MonoBehaviour
 {
-    // 移動入力
-    private Func<Vector2> Move_Input;
-    // 移動速度
-    [SerializeField] private PlayerData _data;
-    // Rigidbody
-    [SerializeField] private Rigidbody _rigidbody;
-    // 移動可能範囲
-    [SerializeField, ReadOnly] private Vector3 _movement_Area;
-    // 移動可能範囲の中心
-    private Transform _movement_Pos;
+    // --- privateフィールド ---
+    private Func<Vector2> _moveInputFunction;
+    private float _currentMoveSpeed;
 
-    private float _speed;
+    // --- シリアライズされたフィールド ---
+    [Header("プレイヤーデータ")]
+    [SerializeField] private PlayerData _playerData;
+
+    [Header("Rigidbodyコンポーネント")]
+    [SerializeField] private Rigidbody _playerRigidbody;
+
+    [Header("移動可能範囲の大きさ")]
+    [SerializeField, ReadOnly] private Vector3 _movementArea;
+
+    [Header("移動可能範囲の中心となるTransform")]
+    [SerializeField] private Transform _movementAreaTransform;
 
     /// <summary>
-    /// アクションを設定する
+    /// Unityのライフサイクルメソッド。オブジェクトの初期化時に呼び出されます。
     /// </summary>
-    /// <param name="func">移動入力を返す関数</param>
-    public void SetAction(Func<Vector2> func)
+    private void Start()
     {
-        Move_Input = func;
+        // 初期移動速度を設定します。
+        _currentMoveSpeed = _playerData.PlayerMoveSpeed;
     }
 
     /// <summary>
-    /// 移動可能範囲を設定する
+    /// 移動入力を提供する関数を設定します。
     /// </summary>
-    /// <param name="pos">中心座標</param>
-    /// <param name="area">範囲</param>
-    public void SetMovementArea(Transform pos, Vector3 area)
+    /// <param name="inputFunction">移動入力を返す関数。</param>
+    public void SetMoveInputFunction(Func<Vector2> inputFunction)
     {
-        _movement_Area = area;
-        _movement_Pos = pos;
-    }
-
-    public void SetMoveSpeedScale(float scale)
-    {
-        if (_data == null) return;
-        _speed = _data.MoveSpeed * scale;
+        _moveInputFunction = inputFunction;
     }
 
     /// <summary>
-    /// 毎フレームの更新処理
+    /// プレイヤーの移動可能範囲を設定します。
     /// </summary>
-    void Update()
+    /// <param name="areaTransform">移動可能範囲の中心となるTransform。</param>
+    /// <param name="areaSize">移動可能範囲の大きさ。</param>
+    public void SetMovementBounds(Transform areaTransform, Vector3 areaSize)
     {
-        // 移動処理
-        Movement();
+        _movementArea = areaSize;
+        _movementAreaTransform = areaTransform;
     }
 
     /// <summary>
-    /// 移動処理
+    /// 移動速度に倍率を適用します。
     /// </summary>
-    private void Movement()
+    /// <param name="scale">適用する倍率。</param>
+    public void ApplyMoveSpeedScale(float scale)
     {
-        // 入力から移動ベクトルを計算
-        Vector3 vec = new Vector3(Move_Input.Invoke().x, Move_Input.Invoke().y, 0) * Time.deltaTime;
+        // プレイヤーデータが設定されていない場合は処理を中断します。
+        if (_playerData == null) return;
 
-        // 移動
-        transform.Translate(vec * _speed, Space.Self);
+        // 基本移動速度に倍率を適用します。
+        _currentMoveSpeed = _playerData.PlayerMoveSpeed * scale;
+    }
 
-        // 移動範囲制限
-        // ワールド座標系で移動範囲を計算し、プレイヤーのワールド座標を制限する
+    /// <summary>
+    /// Unityのライフサイクルメソッド。毎フレーム呼び出されます。
+    /// </summary>
+    private void Update()
+    {
+        // プレイヤーの移動処理を更新します。
+        UpdateMovement();
+    }
+
+    /// <summary>
+    /// プレイヤーの移動処理を実行します。
+    /// </summary>
+    private void UpdateMovement()
+    {
+        // 入力から移動ベクトルを計算します。
+        Vector3 moveVector = new Vector3(_moveInputFunction.Invoke().x, _moveInputFunction.Invoke().y, 0f) * Time.deltaTime;
+
+        // プレイヤーを移動させます。
+        transform.Translate(moveVector * _currentMoveSpeed, Space.Self);
+
+        // 移動可能範囲内でプレイヤーのワールド座標を制限します。
         transform.position = new Vector3(
             Mathf.Clamp(transform.position.x,
-                _movement_Pos.position.x - _movement_Area.x,
-                _movement_Pos.position.x + _movement_Area.x),
+                _movementAreaTransform.position.x - _movementArea.x,
+                _movementAreaTransform.position.x + _movementArea.x),
             Mathf.Clamp(transform.position.y,
-                _movement_Pos.position.y - _movement_Area.y,
-                _movement_Pos.position.y + _movement_Area.y),
-            transform.position.z // Z座標は変更しない
+                _movementAreaTransform.position.y - _movementArea.y,
+                _movementAreaTransform.position.y + _movementArea.y),
+            transform.position.z // Z座標は変更しません。
         );
     }
 }

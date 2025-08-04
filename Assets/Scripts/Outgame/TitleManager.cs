@@ -1,119 +1,117 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// タイトル画面を管理するクラス
+/// タイトル画面のUIとシーン遷移を管理します。
 /// </summary>
 [RequireComponent(typeof(PlayerInput))]
 public class TitleManager : MonoBehaviour
 {
-    // ゲームシーン名
-    [SerializeField] string _GameScene;
+    // --- シリアライズされたフィールド ---
+    [Header("ゲームシーンのシーン名")]
+    [SerializeField] private string _gameSceneName;
 
-    // プレイヤーインプット
-    PlayerInput _p;
-    // プレイヤー1の入力フラグ
-    private bool _move1Pressed = false;
-    // プレイヤー2の入力フラグ
-    private bool _move2Pressed = false;
+    // --- privateフィールド ---
+    private PlayerInput _playerInput;
+    private bool _isPlayer1MovePressed = false;
+    private bool _isPlayer2MovePressed = false;
 
     /// <summary>
-    /// 初期化処理 (Awake)
+    /// Unityのライフサイクルメソッド。オブジェクトの初期化時に呼び出されます。
     /// </summary>
     private void Awake()
     {
-        _p = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     /// <summary>
-    /// 有効になった際の処理
+    /// Unityのライフサイクルメソッド。コンポーネントが有効になった時に呼び出されます。
     /// </summary>
     private void OnEnable()
     {
-        // 入力アクションにコールバックを登録
-        _p.actions["Move1"].started += OnMove1Started;
-        _p.actions["Move2"].started += OnMove2Started;
+        // 入力アクションにコールバックを登録します。
+        _playerInput.actions["Move1"].started += OnPlayer1MoveStarted;
+        _playerInput.actions["Move2"].started += OnPlayer2MoveStarted;
 
-        _p.actions["Move1"].canceled += OnMove1Canceled;
-        _p.actions["Move2"].canceled += OnMove2Canceled;
+        _playerInput.actions["Move1"].canceled += OnPlayer1MoveCanceled;
+        _playerInput.actions["Move2"].canceled += OnPlayer2MoveCanceled;
     }
 
     /// <summary>
-    /// 無効になった際の処理
+    /// Unityのライフサイクルメソッド。コンポーネントが無効になった時に呼び出されます。
     /// </summary>
     private void OnDisable()
     {
-        // 入力アクションからコールバックを解除
-        _p.actions["Move1"].started -= OnMove1Started;
-        _p.actions["Move2"].started -= OnMove2Started;
+        // 入力アクションからコールバックを解除します。
+        _playerInput.actions["Move1"].started -= OnPlayer1MoveStarted;
+        _playerInput.actions["Move2"].started -= OnPlayer2MoveStarted;
 
-        _p.actions["Move1"].canceled -= OnMove1Canceled;
-        _p.actions["Move2"].canceled -= OnMove2Canceled;
+        _playerInput.actions["Move1"].canceled -= OnPlayer1MoveCanceled;
+        _playerInput.actions["Move2"].canceled -= OnPlayer2MoveCanceled;
     }
 
     /// <summary>
-    /// プレイヤー1の入力開始処理
+    /// プレイヤー1の移動入力が開始された時に呼び出されます。
     /// </summary>
-    /// <param name="context">入力コンテキスト</param>
-    private void OnMove1Started(InputAction.CallbackContext context)
+    /// <param name="context">入力コンテキスト。</param>
+    private void OnPlayer1MoveStarted(InputAction.CallbackContext context)
     {
-        _move1Pressed = true;
-        CheckBothPressed();
+        _isPlayer1MovePressed = true;
+        CheckBothPlayersPressed();
     }
 
     /// <summary>
-    /// プレイヤー2の入力開始処理
+    /// プレイヤー2の移動入力が開始された時に呼び出されます。
     /// </summary>
-    /// <param name="context">入力コンテキスト</param>
-    private void OnMove2Started(InputAction.CallbackContext context)
+    /// <param name="context">入力コンテキスト。</param>
+    private void OnPlayer2MoveStarted(InputAction.CallbackContext context)
     {
-        _move2Pressed = true;
-        CheckBothPressed();
+        _isPlayer2MovePressed = true;
+        CheckBothPlayersPressed();
     }
 
     /// <summary>
-    /// プレイヤー1の入力終了処理
+    /// プレイヤー1の移動入力が終了した時に呼び出されます。
     /// </summary>
-    /// <param name="context">入力コンテキスト</param>
-    private void OnMove1Canceled(InputAction.CallbackContext context)
+    /// <param name="context">入力コンテキスト。</param>
+    private void OnPlayer1MoveCanceled(InputAction.CallbackContext context)
     {
-        _move1Pressed = false;
+        _isPlayer1MovePressed = false;
     }
 
     /// <summary>
-    /// プレイヤー2の入力終了処理
+    /// プレイヤー2の移動入力が終了した時に呼び出されます。
     /// </summary>
-    /// <param name="context">入力コンテキスト</param>
-    private void OnMove2Canceled(InputAction.CallbackContext context)
+    /// <param name="context">入力コンテキスト。</param>
+    private void OnPlayer2MoveCanceled(InputAction.CallbackContext context)
     {
-        _move2Pressed = false;
+        _isPlayer2MovePressed = false;
     }
 
     /// <summary>
-    /// 両プレイヤーの入力があったか確認する
+    /// 両方のプレイヤーが同時にボタンを押しているかを確認し、ゲームシーンへ遷移します。
     /// </summary>
-    private void CheckBothPressed()
+    private void CheckBothPlayersPressed()
     {
-        // 両プレイヤーが入力している場合
-        if (_move1Pressed && _move2Pressed)
+        // 両プレイヤーが入力している場合、ゲームシーンへ遷移します。
+        if (_isPlayer1MovePressed && _isPlayer2MovePressed)
         {
-            Debug.Log("両方押されたのでシーンを移動！");
-            // ゲームシーンに遷移
-            SceneManager.LoadScene(_GameScene);
+            Debug.Log("両方押されたのでシーンを移動します！");
+            SceneManager.LoadScene(_gameSceneName);
         }
     }
 
     /// <summary>
-    /// ゲームを終了する
+    /// ゲームを終了します。
     /// </summary>
     public void ExitGame()
     {
 #if UNITY_EDITOR
-        // Unityエディタの場合は再生を停止
+        // Unityエディタの場合、再生を停止します。
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        // ビルド後はアプリケーションを終了
+        // ビルドされたアプリケーションの場合、アプリケーションを終了します。
         Application.Quit();
 #endif
     }
