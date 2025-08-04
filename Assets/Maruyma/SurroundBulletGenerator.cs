@@ -4,13 +4,15 @@ public class SurroundBulletGenerator : IBullet
 {
     Transform _player1Transform;
     GameObject _bulletPrefab;
-    [SerializeField] int _bulletCount = 15; // 一回の弾の数
-    float _dist = 1f; // 弾丸と中心の距離
+    int _bulletCount;
+    float _dist;
 
-    public SurroundBulletGenerator(Transform player1Transform, GameObject bulletPrefab)
+    public SurroundBulletGenerator(Transform player1Transform, GameObject bulletPrefab, int bulletCount, float dist)
     {
         _player1Transform = player1Transform;
         _bulletPrefab = bulletPrefab;
+        _bulletCount = bulletCount;
+        _dist = dist;
     }
     public void Shoot()
     {
@@ -24,12 +26,12 @@ public class SurroundBulletGenerator : IBullet
 
             Vector3 direction = (instancePos - _player1Transform.position).normalized;
 
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            SurroundBullet bulletScript = bullet.GetComponent<SurroundBullet>();
             if (bulletScript != null)
             {
                 bulletScript.SetDirection(direction);
             }
-            GameObject.Destroy(bullet, 2f);
+            GameObject.Destroy(bullet, 1.5f);
         }
     }
     public void Update(float deltaTime)

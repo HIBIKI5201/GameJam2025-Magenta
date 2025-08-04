@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class SurroundBullet : MonoBehaviour
 {
+    [Header("弾丸速度")]
     [SerializeField] float _speed = 10f;
     Vector2 _direction = Vector2.up;
 
