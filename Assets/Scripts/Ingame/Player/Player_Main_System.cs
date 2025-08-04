@@ -21,8 +21,10 @@ public class Player_Main_System : MonoBehaviour
 
     //---テスト---
     // テスト用の弾マネージャー
-    [SerializeField] TestBulletManager bullet;
+    [SerializeReference, SubclassSelector]
+    IBulletGenerator[] _bulletGenerators;
 
+    private int _selectedBulletGeneratorIndex;
     /// <summary>
     /// 初期化処理
     /// </summary>
@@ -37,35 +39,36 @@ public class Player_Main_System : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // 弾を発射
-        bullet.Shot();
+        BulletGeneratorUpdate();
     }
 
     /// <summary>
     /// 初期化
     /// </summary>
-    public void Initialize()
+    public void Initialize(Transform target)
     {
-
+        foreach (var item in _bulletGenerators)
+        {
+            item.Init(transform, target);
+        }
     }
 
-    /// <summary>
-    /// トリガーに接触した際の処理
-    /// </summary>
-    /// <param name="other">衝突したコライダー</param>
-    private void OnTriggerEnter(Collider other)
+    public void TakeDamage(float damage)
     {
-        // プレイヤー1が自身の弾に当たった場合は処理しない
-        if ((tag == "Player1") && other.CompareTag("Bullet1"))
+        player_Status.TakeDamage((int)damage);
+    }   
+
+    private void BulletGeneratorUpdate()
+    {
+        if (_selectedBulletGeneratorIndex < 0 || _bulletGenerators.Length <= _selectedBulletGeneratorIndex)
         {
+            Debug.LogError("Invalid bullet generator index: " + _selectedBulletGeneratorIndex);
             return;
         }
-        // プレイヤー2が自身の弾に当たった場合は処理しない
-        if ((tag == "Player2") && other.CompareTag("Bullet2"))
-        {
-            return;
-        }
-        // ダメージを受ける
-        player_Status.TakeDamage(1);
+
+        // 選択された弾生成器を取得
+        IBulletGenerator selectedGenerator = _bulletGenerators[_selectedBulletGeneratorIndex];
+
+        selectedGenerator.Update(Time.deltaTime);
     }
 }

@@ -1,10 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// 弾を発射するジェネレーターのインターフェース
 /// </summary>
 interface IBulletGenerator
 {
+    public void Init(Transform self, Transform target);
+
     /// <summary>
     /// 毎フレームの更新処理
     /// </summary>

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -19,13 +19,5 @@ public class PlayerTextContlloer : MonoBehaviour
 
         // 弾を生成
         _bulletGenerator.Update(1f);
-    }
-
-    /// <summary>
-    /// 毎フレームの更新処理
-    /// </summary>
-    void Update()
-    {
-        
     }
 }

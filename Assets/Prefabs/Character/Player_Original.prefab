@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6777832859182979456}
   - component: {fileID: 6470512518603040068}
   - component: {fileID: 8420541569180818994}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,9 +122,8 @@ GameObject:
   - component: {fileID: 7831674445822876700}
   - component: {fileID: 6510670903484693075}
   - component: {fileID: -258959804395855032}
-  - component: {fileID: 4468097916196183612}
   - component: {fileID: 442735243260811610}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player_Original
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +161,25 @@ MonoBehaviour:
   _player_Controller: {fileID: 6510670903484693075}
   _player_Movement: {fileID: 7831674445822876700}
   player_Status: {fileID: -258959804395855032}
-  bullet: {fileID: 4468097916196183612}
+  _bulletGenerators:
+  - rid: 713893209644204320
+  - rid: 713893209644204319
+  references:
+    version: 2
+    RefIds:
+    - rid: 713893209644204319
+      type: {class: BeamBulletGenerator, ns: , asm: Assembly-CSharp}
+      data:
+        _bullet: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
+        _interval: 1
+    - rid: 713893209644204320
+      type: {class: SurroundBulletGenerator, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletPrefab: {fileID: -6293472905211874275, guid: e21e4ca83110f6a4fb9f2b91d4650d3b, type: 3}
+        _interval: 0.8
+        _bulletCount: 3
+        _dist: 1
+        _lifeTime: 1.5
 --- !u!114 &7831674445822876700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,21 +222,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _now_hp: 0
   _max_hp: 3
---- !u!114 &4468097916196183612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5995815688161326778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b083a364db73c0947b3d8a5145a5a69a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Obj: {fileID: 4281168836799487080, guid: a8ff84430208e004d948c64c6947ed04, type: 3}
-  count: 0
-  shotmax: 2
 --- !u!54 &442735243260811610
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,7 +245,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

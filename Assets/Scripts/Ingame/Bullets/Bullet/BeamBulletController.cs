@@ -34,13 +34,13 @@ public class BeamBulletController : MonoBehaviour
 	IEnumerator ScaleSequence()
 	{
 		// Y軸にビームを伸ばす
-		yield return StartCoroutine(TimeToScale(1f, new Vector3(transform.localScale.x, _verticalRange, 1f)));
+		yield return TimeToScale(1f, new Vector3(transform.localScale.x, _verticalRange, 1f));
 		// X軸にビームを伸ばす（中心を動かしながら）
-		yield return StartCoroutine(TimeToScale(_launchTime, new Vector3(_horizonRange, transform.localScale.y, 1f)));
+		yield return TimeToScale(_launchTime, new Vector3(_horizonRange, transform.localScale.y, 1f));
 		// ビームのY軸縮小を待つ前に firingTime 分待機
 		yield return new WaitForSeconds(_firingTime);
 		// Y軸を縮める
-		yield return StartCoroutine(TimeToScale(1f, new Vector3(transform.localScale.x, 0.1f, 1f)));
+		yield return TimeToScale(1f, new Vector3(transform.localScale.x, 0.1f, 1f));
 
 		// 自身を破棄
 		Destroy(this.gameObject);

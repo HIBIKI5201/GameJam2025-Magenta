@@ -1,4 +1,4 @@
-using SymphonyFrameWork.Attribute;
+﻿using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -17,7 +17,7 @@ public class Player_Movement : MonoBehaviour
     // 移動可能範囲
     [SerializeField, ReadOnly] private Vector3 _movement_Area;
     // 移動可能範囲の中心
-    private Vector3 _movement_Pos;
+    private Transform _movement_Pos;
 
     /// <summary>
     /// アクションを設定する
@@ -33,7 +33,7 @@ public class Player_Movement : MonoBehaviour
     /// </summary>
     /// <param name="pos">中心座標</param>
     /// <param name="area">範囲</param>
-    public void SetMovementArea(Vector3 pos, Vector3 area)
+    public void SetMovementArea(Transform pos, Vector3 area)
     {
         _movement_Area = area;
         _movement_Pos = pos;
@@ -68,9 +68,15 @@ public class Player_Movement : MonoBehaviour
         transform.Translate(vec * _move_Speed,Space.Self);
 
         // 移動範囲制限
-        transform.localPosition = new Vector2(
-            Mathf.Clamp(transform.localPosition.x, -_movement_Area.x, _movement_Area.x),
-            Mathf.Clamp(transform.localPosition.y, -_movement_Area.y, _movement_Area.y)
-            );
+        // ワールド座標系で移動範囲を計算し、プレイヤーのワールド座標を制限する
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x,
+                _movement_Pos.position.x - _movement_Area.x,
+                _movement_Pos.position.x + _movement_Area.x),
+            Mathf.Clamp(transform.position.y,
+                _movement_Pos.position.y - _movement_Area.y,
+                _movement_Pos.position.y + _movement_Area.y),
+            transform.position.z // Z座標は変更しない
+        );
     }
 }

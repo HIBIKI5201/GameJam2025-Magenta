@@ -15,7 +15,6 @@ public class SurroundBulletController : MonoBehaviour
 
     void Start()
     {
-        _bulletGenerator = new SurroundBulletGenerator(transform, _bulletPrefab, _bulletCount, _dist);
         _timer = _interval; // 最初は弾が出ない
     }
 

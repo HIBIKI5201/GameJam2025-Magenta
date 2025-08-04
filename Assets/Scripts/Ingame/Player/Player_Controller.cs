@@ -20,7 +20,7 @@ public class Player_Controller : MonoBehaviour
     /// </summary>
     /// <param name="input">プレイヤーインプット</param>
     /// <param name="moveInputName">移動入力アクション名</param>
-    public void SetAction(PlayerInput input)
+    public void Init(PlayerInput input)
     {
         // 入力がnullの場合は処理しない
         if (input == null) return;
