@@ -7,6 +7,12 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class Player_Main_System : MonoBehaviour
 {
+    public event Action<float> OnHealthChanged
+    {
+        add => player_Status.OnHealthChanged += value;
+        remove => player_Status.OnHealthChanged -= value;
+    }
+
     public event Action Ondead
     {
         add => player_Status.OnDeath += value;

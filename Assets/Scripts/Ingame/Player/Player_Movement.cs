@@ -1,6 +1,7 @@
 ﻿using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// プレイヤーの移動を管理するクラス

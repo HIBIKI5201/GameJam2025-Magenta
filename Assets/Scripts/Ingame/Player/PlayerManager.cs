@@ -28,21 +28,14 @@ public class PlayerManager : MonoBehaviour
 
     public void GeneratePlayer()
     {
-        // プレイヤー情報を初期化
-        _players = new Player_Main_System[_playerInfos.Length];
-
         // プレイヤーを生成
-        for (int i = 0; i < _playerInfos.Length; i++)
+        for (int i = 0; i < _players.Length; i++)
         {
-            var info = _playerInfos[i];
-
-            // プレイヤーを生成
-            var player = Instantiate(info.Player_Controller, info.SpawnPosition, Quaternion.identity);
-
             // プレイヤー情報を設定
-            _players[i] = player;
+            var player = _players[i];
             player.GetComponent<Player_Movement>().SetMovementArea(_movement_Area_Tran, _movement_Area);
             player.transform.SetParent(_movement_Area_Tran);
+            player.OnHealthChanged += _healthBars[i].SetFillAmount;
         }
 
         for (int i = 0; i < _players.Length; i++)
@@ -91,12 +84,13 @@ public class PlayerManager : MonoBehaviour
     // 移動可能範囲の中心
     [SerializeField]
     private Transform _movement_Area_Tran;
-    // プレイヤー情報
-    [SerializeField]
-    private PlayerInfo[] _playerInfos = new PlayerInfo[2];
 
-    // 生成したプレイヤー
+    [SerializeField]
     private Player_Main_System[] _players;
+
+    [SerializeField]
+    private ImageFillAmount[] _healthBars;
+
     private PlayerInput _input;
     /// <summary>
     /// ギズモを描画
@@ -106,22 +100,5 @@ public class PlayerManager : MonoBehaviour
         // 移動可能範囲をワイヤーフレームで表示
         Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawWireCube(transform.position, _movement_Area * 2);
-    }
-
-
-    /// <summary>
-    /// プレイヤー情報
-    /// </summary>
-    [Serializable]
-    private struct PlayerInfo
-    {
-        public Player_Main_System Player_Controller => _playerPrefab;
-        public Vector3 SpawnPosition => _spawnPosition;
-
-        [SerializeField]
-        private Vector3 _spawnPosition;
-        [SerializeField]
-        private Player_Main_System _playerPrefab;
-
     }
 }
