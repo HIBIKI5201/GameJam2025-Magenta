@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// プレイヤーのメインシステムを管理するクラス
@@ -12,6 +13,9 @@ public class Player_Main_System : MonoBehaviour
         remove => player_Status.OnDeath -= value;
     }
 
+    [SerializeField]
+    private string _selectInputActionName;
+
     // プレイヤーコントローラー
     [SerializeField] Player_Controller _player_Controller;
     // プレイヤーの移動
@@ -23,6 +27,7 @@ public class Player_Main_System : MonoBehaviour
     // テスト用の弾マネージャー
     [SerializeReference, SubclassSelector]
     IBulletGenerator[] _bulletGenerators;
+
 
     private int _selectedBulletGeneratorIndex;
     /// <summary>
@@ -53,6 +58,14 @@ public class Player_Main_System : MonoBehaviour
         }
     }
 
+    public void SetInput(PlayerInput input)
+    {
+        _player_Controller.Init(input);
+
+        InputAction selectAction = input.actions[_selectInputActionName];
+        selectAction.started += HandleSelect;
+    }
+
     public void TakeDamage(float damage)
     {
         player_Status.TakeDamage((int)damage);
@@ -70,5 +83,15 @@ public class Player_Main_System : MonoBehaviour
         IBulletGenerator selectedGenerator = _bulletGenerators[_selectedBulletGeneratorIndex];
 
         selectedGenerator.Update(Time.deltaTime);
+    }
+
+    private void HandleSelect(InputAction.CallbackContext context)
+    {
+        // 入力された値を取得
+        int inputValue = (int)Mathf.Sign(context.ReadValue<float>());
+        // インデックスを更新
+        _selectedBulletGeneratorIndex = (_selectedBulletGeneratorIndex + inputValue + _bulletGenerators.Length) % _bulletGenerators.Length;
+
+        Debug.Log("Selected Bullet Generator Index: " + _selectedBulletGeneratorIndex);
     }
 }

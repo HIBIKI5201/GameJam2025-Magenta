@@ -27,7 +27,7 @@ public class SurroundBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.transform.parent.TryGetComponent(out Player_Main_System player)) return;
+        if (!other.attachedRigidbody.TryGetComponent(out Player_Main_System player)) return;
 
         if (player.transform == _owner)
         {

@@ -1,14 +1,7 @@
-/// <summary>
-/// シーンの種類を定義する列挙型
-/// </summary>
-public enum SceneListEnum : int
+﻿public enum SceneListEnum : int
 {
-    /// <summary>
-    /// なし
-    /// </summary>
     None = 0,
-    /// <summary>
-    /// サンプルシーン
-    /// </summary>
-    SampleScene = 1,
+    Title = 1,
+    Ingame = 2,
+    Result = 3,
 }

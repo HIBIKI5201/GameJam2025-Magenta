@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: _selectInputActionName
+      value: Select1
+      objectReference: {fileID: 0}
     - target: {fileID: 4535186931121036558, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

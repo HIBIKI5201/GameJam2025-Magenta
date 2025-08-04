@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 
 /// <summary>
@@ -11,7 +13,7 @@ public class BeamBulletController : MonoBehaviour
 	[SerializeField] float _verticalRange = 10f;
 
 	[Header("ビームの横に伸びきる時間")]
-	[SerializeField, Range(1f, 10f)] float _launchTime = 1f;
+	[SerializeField, Range(0.1f, 10f)] float _launchTime = 1f;
 
 	[Header("ビームが縮むまでの時間")]
 	[SerializeField] float _firingTime = 2f;
@@ -19,19 +21,44 @@ public class BeamBulletController : MonoBehaviour
 	[Header("ビームの横の長さ")]
 	[SerializeField] float _horizonRange = 200f;
 
-	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	void Start()
+	[SerializeField]
+	private float _damage = 1f; // ビームが与えるダメージ	
+    private Vector3 _initialPosition;
+	private Transform _owner; // ビームの所有者
+
+    public void Init(Transform transform)
     {
+        _owner = transform;
+    }
+    
+	/// <summary>
+    /// 初期化処理
+    /// </summary>
+    void Start()
+    {
+		// 初期位置を保存
+		_initialPosition = transform.position;
 		// ビームの伸縮シーケンスを開始
 		StartCoroutine(ScaleSequence());
 	}
 
-	/// <summary>
-	/// ビームの伸縮を制御するコルーチン
-	/// </summary>
-	IEnumerator ScaleSequence()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.attachedRigidbody.TryGetComponent(out Player_Main_System player)) return;
+
+        if (player.transform == _owner)
+        {
+            return; // 自分自身との衝突は無視
+        }
+
+        player.TakeDamage(_damage); // ダメージを与える
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// ビームの伸縮を制御するコルーチン
+    /// </summary>
+    IEnumerator ScaleSequence()
 	{
 		// Y軸にビームを伸ばす
 		yield return TimeToScale(1f, new Vector3(transform.localScale.x, _verticalRange, 1f));
@@ -71,8 +98,8 @@ public class BeamBulletController : MonoBehaviour
 
 			if (scaleDeltaX > 0.1f)
 			{
-				// 右方向にだけ伸ばす
-				transform.position = new Vector3(scaleDeltaX / 16f, 0f, 0f);
+				// 初期位置を基準に、オブジェクトの右方向にだけ伸ばす
+				transform.position = _initialPosition + transform.right * (scaleDeltaX / 2f);
 			}
 
 			yield return null;
@@ -80,5 +107,8 @@ public class BeamBulletController : MonoBehaviour
 
 		// 最終的なスケールに設定
 		transform.localScale = endScale;
-	}
+
+        // 一定時間後にビーム弾を破棄
+        Destroy(gameObject, 1.5f);
+    }
 }

@@ -47,9 +47,6 @@ public class BeamBulletGenerator : IBulletGenerator
         BeamBulletController bullet = GameObject.Instantiate(_bullet, _self.position, Quaternion.identity);
         // ターゲットの方向に向ける
         Vector3 direction = (_target.position - _self.position).normalized;
-        // ビーム弾の方向を設定
-        bullet.transform.rotation = Quaternion.LookRotation(direction);
-        // 一定時間後にビーム弾を破棄
-        GameObject.Destroy(bullet, 1.5f);
+        bullet.transform.right = direction;
     }
 }

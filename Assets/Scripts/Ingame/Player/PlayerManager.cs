@@ -10,11 +10,8 @@ public class PlayerManager : MonoBehaviour
 {
     public void GeneratePlayer()
     {
-        // PlayerInputコンポーネントを取得
-        if (!TryGetComponent(out PlayerInput input)) return;
-
         // プレイヤー情報を初期化
-        _players = new Player_Controller[_playerInfos.Length];
+        _players = new Player_Main_System[_playerInfos.Length];
 
         // プレイヤーを生成
         for (int i = 0; i < _playerInfos.Length; i++)
@@ -26,7 +23,6 @@ public class PlayerManager : MonoBehaviour
 
             // プレイヤー情報を設定
             _players[i] = player;
-            player.GetComponent<Player_Controller>().Init(input);
             player.GetComponent<Player_Movement>().SetMovementArea(_movement_Area_Tran, _movement_Area);
             player.transform.SetParent(_movement_Area_Tran);
         }
@@ -38,12 +34,25 @@ public class PlayerManager : MonoBehaviour
             {
                 // プレイヤーのメインシステムを初期化
                 playerMainSystem.Initialize(
-                    _players[(i + _players.Length) % _players.Length].transform);
+                    _players[(i + 1) % _players.Length].transform);
             }
             else
             {
                 Debug.LogError("Player_Main_System component is missing on the player prefab.");
             }
+        }
+    }
+
+    public void SetInput()
+    {
+        // PlayerInputコンポーネントを取得
+        if (!TryGetComponent(out PlayerInput input)) return;
+
+        // 各プレイヤーに入力を設定
+        for (int i = 0; i < _players.Length; i++)
+        {
+            // プレイヤーの入力を設定
+            _players[i].SetInput(input);
         }
     }
 
@@ -58,15 +67,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerInfo[] _playerInfos = new PlayerInfo[2];
 
     // 生成したプレイヤー
-    private Player_Controller[] _players;
-
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    private void Start()
-    {
-        GeneratePlayer();
-    }
+    private Player_Main_System[] _players;
 
     /// <summary>
     /// ギズモを描画
@@ -85,13 +86,13 @@ public class PlayerManager : MonoBehaviour
     [Serializable]
     private struct PlayerInfo
     {
-        public Player_Controller Player_Controller => _playerPrefab;
+        public Player_Main_System Player_Controller => _playerPrefab;
         public Vector3 SpawnPosition => _spawnPosition;
 
         [SerializeField]
         private Vector3 _spawnPosition;
         [SerializeField]
-        private Player_Controller _playerPrefab;
+        private Player_Main_System _playerPrefab;
 
     }
 }

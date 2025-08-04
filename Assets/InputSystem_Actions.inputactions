@@ -25,7 +25,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Select1",
+                    "name": "Select2",
                     "type": "Value",
                     "id": "c11c6f1d-f209-45c3-97ba-dd0635d00db9",
                     "expectedControlType": "Axis",
@@ -34,7 +34,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Select2",
+                    "name": "Select1",
                     "type": "Value",
                     "id": "376c0861-e088-4e49-af20-127c0fdc16e8",
                     "expectedControlType": "Axis",
@@ -172,7 +172,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select1",
+                    "action": "Select2",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -183,7 +183,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select1",
+                    "action": "Select2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -194,7 +194,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select1",
+                    "action": "Select2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -205,7 +205,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select2",
+                    "action": "Select1",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -216,7 +216,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select2",
+                    "action": "Select1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -227,7 +227,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select2",
+                    "action": "Select1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

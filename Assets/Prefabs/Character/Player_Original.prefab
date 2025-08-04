@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4929a5ef69ff8408de6888f1ae5b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectInputActionName: 
   _player_Controller: {fileID: 6510670903484693075}
   _player_Movement: {fileID: 7831674445822876700}
   player_Status: {fileID: -258959804395855032}
@@ -171,7 +172,7 @@ MonoBehaviour:
       type: {class: BeamBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
         _bullet: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
-        _interval: 1
+        _interval: 4
     - rid: 713893209644204320
       type: {class: SurroundBulletGenerator, ns: , asm: Assembly-CSharp}
       data:

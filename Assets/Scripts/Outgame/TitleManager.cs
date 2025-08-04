@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -6,12 +6,8 @@ using UnityEngine.SceneManagement;
 /// タイトル画面を管理するクラス
 /// </summary>
 [RequireComponent(typeof(PlayerInput))]
-public class TitelManager : MonoBehaviour
+public class TitleManager : MonoBehaviour
 {
-    // タイトルシーン名
-    [SerializeField] string _TitleScene;
-    // オプションシーン名
-    [SerializeField] string _OptionScene;
     // ゲームシーン名
     [SerializeField] string _GameScene;
 
@@ -106,22 +102,6 @@ public class TitelManager : MonoBehaviour
             // ゲームシーンに遷移
             SceneManager.LoadScene(_GameScene);
         }
-    }
-
-    /// <summary>
-    /// タイトルシーンに遷移する
-    /// </summary>
-    public void TitleSenen()
-    {
-        SceneManager.LoadScene(_TitleScene);
-    }
-
-    /// <summary>
-    /// オプションシーンに遷移する
-    /// </summary>
-    public void OptionSenen()
-    {
-        SceneManager.LoadScene(_OptionScene);
     }
 
     /// <summary>
