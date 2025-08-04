@@ -2,6 +2,8 @@
 using SymphonyFrameWork.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+
 
 public class TitelManager : MonoBehaviour
 {
@@ -9,36 +11,33 @@ public class TitelManager : MonoBehaviour
     [SerializeField] string _OptionScene;
     [SerializeField] string _GameScene;
 
-    KeyCode[] _StratKey1 = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
-    KeyCode[] _StratKey2 = {KeyCode.RightArrow,KeyCode.LeftArrow,KeyCode.UpArrow,KeyCode.DownArrow };
-
+    private InputActionMap _ActionMap;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-      //タイムラインでループすようにする　静止画だとさみしいから
+        _ActionMap = new InputActionMap();
 
-        //SymphonyTween 時間を何秒かかけて動かしたりすることができる
+      //タイムラインでループすようにする　静止画だとさみしいから
+      //SymphonyTween 時間を何秒かかけて動かしたりすることができる
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_StratKey1.Any(Input.GetKey) && _StratKey2.Any(Input.GetKey))
-        {
-            Debug.Log("aaa");
-        }
+      
     }
     public void TitleSenen()    //タイトルシーン
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene(_TitleScene);
     }
     public void OptionSenen()   //オプションシーン
     {
-        SceneManager.LoadScene("OptionScene");
+        SceneManager.LoadScene(_OptionScene);
     }
     public void StratGame()     //ゲームシーン    WASDのどれかと十字キーのどれかを押してる状態でスタート
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(_GameScene);
     }
 
 
