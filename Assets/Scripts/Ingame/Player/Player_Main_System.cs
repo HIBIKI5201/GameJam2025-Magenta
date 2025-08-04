@@ -58,6 +58,8 @@ public class Player_Main_System : MonoBehaviour
         {
             item.Init(transform, target.transform);
         }
+
+        _player_Movement.SetMoveSpeedScale(_bulletGenerators[_selectedBulletGeneratorIndex].MoveSpeedScale);
     }
 
     public void StartEntity(PlayerInput input)

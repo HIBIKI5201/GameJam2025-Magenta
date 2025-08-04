@@ -165,6 +165,7 @@ MonoBehaviour:
   _bulletGenerators:
   - rid: 713893209644204320
   - rid: 713893209644204319
+  - rid: 713893209644204461
   references:
     version: 2
     RefIds:
@@ -173,6 +174,7 @@ MonoBehaviour:
       data:
         _bullet: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
         _interval: 4
+        _moveSpeed: 0.7
     - rid: 713893209644204320
       type: {class: SurroundBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
@@ -181,6 +183,13 @@ MonoBehaviour:
         _bulletCount: 3
         _dist: 1
         _lifeTime: 1.5
+        _moveSpeed: 1.5
+    - rid: 713893209644204461
+      type: {class: HomingBulletGenerator, ns: , asm: Assembly-CSharp}
+      data:
+        _bulletPrefab: {fileID: 7740359617280864561, guid: 7698e777ddbcf3c4f830ca3d53fe4b9a, type: 3}
+        _interval: 1
+        _moveSpeed: 1
 --- !u!114 &7831674445822876700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _now_hp: 0
-  _max_hp: 3
+  _data: {fileID: 11400000, guid: e38682f9bfbd50246ade5cd2fce9c3d2, type: 2}
 --- !u!54 &442735243260811610
 Rigidbody:
   m_ObjectHideFlags: 0

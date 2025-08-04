@@ -1,7 +1,6 @@
 ﻿using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// プレイヤーの移動を管理するクラス
@@ -45,14 +44,6 @@ public class Player_Movement : MonoBehaviour
     {
         if (_data == null) return;
         _speed = _data.MoveSpeed * scale;
-    }   
-
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    void Start()
-    {
-        _speed = _data.MoveSpeed;
     }
 
     /// <summary>
@@ -73,7 +64,7 @@ public class Player_Movement : MonoBehaviour
         Vector3 vec = new Vector3(Move_Input.Invoke().x, Move_Input.Invoke().y, 0) * Time.deltaTime;
 
         // 移動
-        transform.Translate(vec * _speed,Space.Self);
+        transform.Translate(vec * _speed, Space.Self);
 
         // 移動範囲制限
         // ワールド座標系で移動範囲を計算し、プレイヤーのワールド座標を制限する

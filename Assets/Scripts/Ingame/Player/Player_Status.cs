@@ -10,9 +10,9 @@ public class Player_Status : MonoBehaviour
     public Action OnDeath; // 死亡時のイベント
 
     // 現在のHP
-    [SerializeField, ReadOnly] int _now_hp;
+    [SerializeField, ReadOnly] float _now_hp;
     // 最大HP
-    [SerializeField] int _max_hp;
+    [SerializeField] PlayerData _data;
     // 死亡フラグ
     private bool _is_death;
 
@@ -30,7 +30,7 @@ public class Player_Status : MonoBehaviour
     /// </summary>
     private void StatusInitialize()
     {
-        _now_hp = _max_hp;
+        _now_hp = _data.MaxHealth;
         _is_death = false;
     }
 

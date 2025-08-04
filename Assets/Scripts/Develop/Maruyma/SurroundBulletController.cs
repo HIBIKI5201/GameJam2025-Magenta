@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SurroundBulletController : MonoBehaviour
+public class Dev_SurroundBulletController : MonoBehaviour
 {
     SurroundBulletGenerator _bulletGenerator;
     [SerializeField] GameObject _bulletPrefab;
