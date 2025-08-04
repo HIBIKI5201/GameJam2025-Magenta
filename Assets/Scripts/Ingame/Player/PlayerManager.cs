@@ -8,6 +8,24 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerManager : MonoBehaviour
 {
+    public event Action OnAnyPlayerDead
+    {
+        add
+        {
+            foreach (var player in _players)
+            {
+                player.Ondead += value;
+            }
+        }
+        remove
+        {
+            foreach (var player in _players)
+            {
+                player.Ondead -= value;
+            }
+        }
+    }
+
     public void GeneratePlayer()
     {
         // プレイヤー情報を初期化
@@ -34,7 +52,7 @@ public class PlayerManager : MonoBehaviour
             {
                 // プレイヤーのメインシステムを初期化
                 playerMainSystem.Initialize(
-                    _players[(i + 1) % _players.Length].transform);
+                    _players[(i + 1) % _players.Length]);
             }
             else
             {
@@ -46,14 +64,25 @@ public class PlayerManager : MonoBehaviour
     public void SetInput()
     {
         // PlayerInputコンポーネントを取得
-        if (!TryGetComponent(out PlayerInput input)) return;
+        if (!TryGetComponent(out _input)) return;
 
         // 各プレイヤーに入力を設定
         for (int i = 0; i < _players.Length; i++)
         {
             // プレイヤーの入力を設定
-            _players[i].SetInput(input);
+            _players[i].StartEntity(_input);
         }
+    }
+
+    public void ResetInput()
+    {
+        if (_input == null) return;
+
+        foreach (var player in _players)
+        {
+            player.StopEntity();
+        }
+        _input.actions.Disable(); // 入力アクションを無効化
     }
 
     // 移動可能範囲
@@ -68,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 
     // 生成したプレイヤー
     private Player_Main_System[] _players;
-
+    private PlayerInput _input;
     /// <summary>
     /// ギズモを描画
     /// </summary>

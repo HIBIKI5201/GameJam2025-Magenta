@@ -11,13 +11,15 @@ public class Player_Movement : MonoBehaviour
     // 移動入力
     private Func<Vector2> Move_Input;
     // 移動速度
-    [SerializeField] private float _move_Speed;
+    [SerializeField] private PlayerData _data;
     // Rigidbody
     [SerializeField] private Rigidbody _rigidbody;
     // 移動可能範囲
     [SerializeField, ReadOnly] private Vector3 _movement_Area;
     // 移動可能範囲の中心
     private Transform _movement_Pos;
+
+    private float _speed;
 
     /// <summary>
     /// アクションを設定する
@@ -39,12 +41,18 @@ public class Player_Movement : MonoBehaviour
         _movement_Pos = pos;
     }
 
+    public void SetMoveSpeedScale(float scale)
+    {
+        if (_data == null) return;
+        _speed = _data.MoveSpeed * scale;
+    }   
+
     /// <summary>
     /// 初期化処理
     /// </summary>
     void Start()
     {
-        
+        _speed = _data.MoveSpeed;
     }
 
     /// <summary>
@@ -65,7 +73,7 @@ public class Player_Movement : MonoBehaviour
         Vector3 vec = new Vector3(Move_Input.Invoke().x, Move_Input.Invoke().y, 0) * Time.deltaTime;
 
         // 移動
-        transform.Translate(vec * _move_Speed,Space.Self);
+        transform.Translate(vec * _speed,Space.Self);
 
         // 移動範囲制限
         // ワールド座標系で移動範囲を計算し、プレイヤーのワールド座標を制限する

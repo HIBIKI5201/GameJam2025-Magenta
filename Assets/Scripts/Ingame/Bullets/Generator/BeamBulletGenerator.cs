@@ -7,8 +7,10 @@ using UnityEngine;
 [Serializable]
 public class BeamBulletGenerator : IBulletGenerator
 {
-	// プレイヤーのTransform
-	Transform _self;
+    public float MoveSpeedScale => _moveSpeed;
+
+    // プレイヤーのTransform
+    Transform _self;
     Transform _target;
     // 生成するビーム弾のプレハブ
     [SerializeField] BeamBulletController _bullet;
@@ -16,6 +18,8 @@ public class BeamBulletGenerator : IBulletGenerator
     [SerializeField]
     float _interval = 0.1f; // ビーム弾の生成間隔
 
+    [SerializeField]
+    private float _moveSpeed = 1f; // 移動速度
     float _timer; // タイマー
 
     public void Init(Transform self, Transform target)
@@ -48,5 +52,6 @@ public class BeamBulletGenerator : IBulletGenerator
         // ターゲットの方向に向ける
         Vector3 direction = (_target.position - _self.position).normalized;
         bullet.transform.right = direction;
+        bullet.Init(_self);
     }
 }

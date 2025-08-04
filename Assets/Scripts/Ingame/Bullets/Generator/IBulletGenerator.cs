@@ -5,6 +5,8 @@
 /// </summary>
 interface IBulletGenerator
 {
+    public float MoveSpeedScale { get; }
+
     public void Init(Transform self, Transform target);
 
     /// <summary>

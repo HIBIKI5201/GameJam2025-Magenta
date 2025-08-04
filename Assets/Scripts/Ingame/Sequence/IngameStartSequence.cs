@@ -9,5 +9,8 @@ public class IngameStartSequence : MonoBehaviour
     {
         _playerManager.GeneratePlayer();
         _playerManager.SetInput();
+
+        var endSequence = GetComponent<IngameEndSequence>();
+        endSequence.RegisterPlayerManager(_playerManager);
     }
 }

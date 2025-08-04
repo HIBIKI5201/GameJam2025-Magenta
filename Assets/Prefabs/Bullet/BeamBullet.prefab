@@ -46,10 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721307dabc419d34f8599928a409e14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalRange: 5
-  _launchTime: 1
+  _verticalRange: 3
+  _launchTime: 0.2
   _firingTime: 2
   _horizonRange: 20
+  _damage: 1
 --- !u!65 &498418446741150742
 BoxCollider:
   m_ObjectHideFlags: 0

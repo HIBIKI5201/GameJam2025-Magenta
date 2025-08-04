@@ -23,13 +23,13 @@ public class Player_Main_System : MonoBehaviour
     // プレイヤーステータス
     [SerializeField] Player_Status player_Status;
 
-    //---テスト---
-    // テスト用の弾マネージャー
     [SerializeReference, SubclassSelector]
     IBulletGenerator[] _bulletGenerators;
 
+    private Player_Main_System _target;
 
     private int _selectedBulletGeneratorIndex;
+    private bool _isPlaying;
     /// <summary>
     /// 初期化処理
     /// </summary>
@@ -44,26 +44,35 @@ public class Player_Main_System : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (!_isPlaying) return;
         BulletGeneratorUpdate();
     }
 
     /// <summary>
     /// 初期化
     /// </summary>
-    public void Initialize(Transform target)
+    public void Initialize(Player_Main_System target)
     {
+        _target = target;
         foreach (var item in _bulletGenerators)
         {
-            item.Init(transform, target);
+            item.Init(transform, target.transform);
         }
     }
 
-    public void SetInput(PlayerInput input)
+    public void StartEntity(PlayerInput input)
     {
         _player_Controller.Init(input);
 
         InputAction selectAction = input.actions[_selectInputActionName];
         selectAction.started += HandleSelect;
+
+        _isPlaying = true;
+    }
+
+    public void StopEntity()
+    {
+        _isPlaying = false;
     }
 
     public void TakeDamage(float damage)
@@ -93,5 +102,7 @@ public class Player_Main_System : MonoBehaviour
         _selectedBulletGeneratorIndex = (_selectedBulletGeneratorIndex + inputValue + _bulletGenerators.Length) % _bulletGenerators.Length;
 
         Debug.Log("Selected Bullet Generator Index: " + _selectedBulletGeneratorIndex);
+
+         _player_Movement.SetMoveSpeedScale( _bulletGenerators[_selectedBulletGeneratorIndex].MoveSpeedScale);
     }
 }

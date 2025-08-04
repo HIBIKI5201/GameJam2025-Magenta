@@ -610,6 +610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1935365632}
   - component: {fileID: 1935365633}
+  - component: {fileID: 1935365634}
   m_Layer: 0
   m_Name: ScequenceSystem
   m_TagString: Untagged
@@ -645,6 +646,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerManager: {fileID: 455784017}
+--- !u!114 &1935365634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935365631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b3f33d87cdc764c903d9acfed44bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResultSceneName: Title
 --- !u!1 &2030350404
 GameObject:
   m_ObjectHideFlags: 0

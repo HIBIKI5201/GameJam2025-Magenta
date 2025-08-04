@@ -4,11 +4,13 @@ using UnityEngine;
 [Serializable]
 public class SurroundBulletGenerator : IBulletGenerator
 {
+    public float MoveSpeedScale => _moveSpeed;
+
     private Transform _self;
     private LayerMask _targetLayerMask;
 
     [SerializeField]
-    SurroundBullet _bulletPrefab;
+    SurroundBulletController _bulletPrefab;
 
     [SerializeField, Min(0.1f)]
     float _interval = 1f;
@@ -22,6 +24,8 @@ public class SurroundBulletGenerator : IBulletGenerator
     [SerializeField]
     private float _lifeTime = 1.5f;
 
+    [SerializeField]
+    private float _moveSpeed = 1f; // 移動速度
     float _timer;
 
     public void Init(Transform self, Transform target)
@@ -37,7 +41,7 @@ public class SurroundBulletGenerator : IBulletGenerator
             Vector3 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * _dist;
             Vector3 instancePos = _self.position + offset;
 
-            SurroundBullet bullet = GameObject.Instantiate(_bulletPrefab, instancePos, Quaternion.identity);
+            SurroundBulletController bullet = GameObject.Instantiate(_bulletPrefab, instancePos, Quaternion.identity);
             bullet.Init(_self);
 
             Vector3 direction = (instancePos - _self.position).normalized;

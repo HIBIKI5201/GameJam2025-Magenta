@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SurroundBullet : MonoBehaviour
+public class SurroundBulletController : MonoBehaviour
 {
     [Header("弾丸速度")]
     [SerializeField] float _speed = 10f;
@@ -35,7 +35,6 @@ public class SurroundBullet : MonoBehaviour
         }
 
         player.TakeDamage(_damage); // ダメージを与える
-        Destroy(gameObject);
     }
 }
 

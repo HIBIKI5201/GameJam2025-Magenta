@@ -43,7 +43,7 @@ public class Player_Status : MonoBehaviour
         // 死亡している場合は処理しない
         if(_is_death) return;
         // ダメージログを出力
-        Debug.Log(damage);
+        Debug.Log($"{gameObject.name} taked {damage} damage");
         // HPを減らす
         _now_hp -= damage;
 
@@ -52,6 +52,7 @@ public class Player_Status : MonoBehaviour
         {
             _is_death = true;
             _now_hp = 0;
+            OnDeath?.Invoke(); // 死亡イベントを発火
         }
     }
 }
