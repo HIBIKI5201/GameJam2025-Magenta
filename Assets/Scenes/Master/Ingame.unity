@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerManager: {fileID: 455784017}
-  _bgm: {fileID: 0}
+  _bgm: {fileID: 8300000, guid: ff3d8300767143e49b1f52f72662af69, type: 3}
 --- !u!114 &1935365634
 MonoBehaviour:
   m_ObjectHideFlags: 0
