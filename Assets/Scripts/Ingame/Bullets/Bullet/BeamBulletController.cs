@@ -77,8 +77,6 @@ public class BeamBulletController : MonoBehaviour
 
             // 相手にダメージを与えます。
             player.TakeDamage(_damage);
-            // 自身を破棄します。
-            Destroy(gameObject);
         }
 
         // 他の弾に衝突した場合の処理。
