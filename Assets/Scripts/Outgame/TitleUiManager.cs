@@ -106,11 +106,11 @@ public class TitleUiManager : MonoBehaviour
 
         if(vec > 0)
         {
+            page_num++;
             if (page_num == Operation_Page.Count)
             {
                 Operation_End_Action.Invoke();
             }
-            page_num++;
         }
         else if(vec < 0)
         {
