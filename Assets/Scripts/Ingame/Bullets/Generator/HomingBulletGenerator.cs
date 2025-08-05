@@ -54,7 +54,7 @@ public class HomingBulletGenerator : IBulletGenerator
     public void SetSelected(bool active)
     {
         // UIの選択状態を更新します。
-        _ui[_index].SelectedHighLight.gameObject.SetActive(active);
+        _ui.SetHighLight(_index, active);
 
         if (!active)
         {

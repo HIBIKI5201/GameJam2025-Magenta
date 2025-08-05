@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 263660732}
   - component: {fileID: 263660731}
   m_Layer: 5
-  m_Name: HighLight
+  m_Name: HighLight_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
