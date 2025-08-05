@@ -66,7 +66,7 @@ public class IngameEndSequence : MonoBehaviour
         await Awaitable.WaitForSecondsAsync(2f);
 
         // リザルトシーンへ遷移します。
-        SceneManager.LoadScene(_resultSceneName);
+        SceneLoadUtility.LoadScene(_resultSceneName);
     }
 
     /// <summary>
