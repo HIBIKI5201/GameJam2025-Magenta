@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4535186931121036558}
@@ -166,6 +166,8 @@ MonoBehaviour:
   - rid: 713893209644204320
   - rid: 713893209644204319
   - rid: 713893209644204461
+  _bulletRoot: {fileID: 0}
+  _bulletUI: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -173,23 +175,29 @@ MonoBehaviour:
       type: {class: BeamBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
         _beamBulletPrefab: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
-        _shootInterval: 0.1
+        _shootInterval: 6
         _movementSpeedScale: 1
+        _ui: {fileID: 0}
+        _index: 0
     - rid: 713893209644204320
       type: {class: SurroundBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
         _surroundBulletPrefab: {fileID: -6293472905211874275, guid: e21e4ca83110f6a4fb9f2b91d4650d3b, type: 3}
-        _shootInterval: 1
-        _numberOfBullets: 3
+        _shootInterval: 2
+        _numberOfBullets: 16
         _spawnDistance: 0.1
-        _bulletLifetime: 1.5
+        _bulletLifetime: 5
         _movementSpeedScale: 1
+        _ui: {fileID: 0}
+        _index: 0
     - rid: 713893209644204461
       type: {class: HomingBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
         _homingBulletPrefab: {fileID: 7740359617280864561, guid: 7698e777ddbcf3c4f830ca3d53fe4b9a, type: 3}
         _shootInterval: 0.5
         _movementSpeedScale: 1
+        _ui: {fileID: 0}
+        _index: 0
 --- !u!114 &7831674445822876700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +214,7 @@ MonoBehaviour:
   _playerRigidbody: {fileID: 442735243260811610}
   _movementArea: {x: 0, y: 0, z: 0}
   _movementAreaTransform: {fileID: 0}
+  _character: {fileID: 6470512518603040068}
 --- !u!114 &6510670903484693075
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+﻿using SymphonyFrameWork.System;
 using UnityEngine;
 
 /// <summary>
@@ -18,6 +19,8 @@ public class HomingBulletController : MonoBehaviour
     [Header("ホーミング弾の生存時間")]
     [SerializeField] private float _lifetime = 5f;
 
+    [SerializeField]
+    private AudioClip _shootSound;
     // --- privateフィールド ---
     private Transform _owner;
     private Transform _target;
@@ -31,6 +34,8 @@ public class HomingBulletController : MonoBehaviour
     {
         _owner = ownerTransform;
         _target = targetTransform;
+
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString()).PlayOneShot(_shootSound);
 
         // 指定時間後に弾を破棄します。
         Destroy(gameObject, _lifetime);
