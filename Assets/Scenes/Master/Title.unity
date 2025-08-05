@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 296619925}
   - component: {fileID: 296619924}
   - component: {fileID: 296619923}
+  - component: {fileID: 296619926}
   - component: {fileID: 296619922}
   m_Layer: 0
   m_Name: TitleSceneManager
@@ -933,7 +934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4862dedb9505fef4a8a5bedbcded76ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameSceneName: 
+  uiManager: {fileID: 296619926}
+  _gameSceneName: Ingame
 --- !u!114 &296619924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,6 +981,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &296619926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296619921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94150a2870f5404ea35cd5be245a7f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title_Panel: {fileID: 1355610510}
+  flashing_Max: 0.7
+  flashing_Image:
+  - main_Image: {fileID: 2057512600}
+    dicision_Image: {fileID: 107785642}
+    flashing_Color_Min: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+    flashing_Color_Max: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
+    Dicision_Color: {r: 0.41176474, g: 0.41176474, b: 0.41176474, a: 1}
+    dicision_Image_Color: {r: 1, g: 1, b: 1, a: 1}
+  - main_Image: {fileID: 472140419}
+    dicision_Image: {fileID: 110731068}
+    flashing_Color_Min: {r: 0.7509433, g: 0.7509433, b: 0.7509433, a: 1}
+    flashing_Color_Max: {r: 0.86274517, g: 0.86274517, b: 0.86274517, a: 1}
+    Dicision_Color: {r: 0.4113207, g: 0.4113207, b: 0.4113207, a: 1}
+    dicision_Image_Color: {r: 1, g: 1, b: 1, a: 1}
+  Operation_Panel: {fileID: 726359932}
 --- !u!1 &302029782
 GameObject:
   m_ObjectHideFlags: 0
