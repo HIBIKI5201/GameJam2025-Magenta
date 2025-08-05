@@ -3,41 +3,28 @@ using UnityEngine.UI;
 
 public class Resultseq : MonoBehaviour
 {
-    [SerializeField] private Text _winnerText;
-    [SerializeField] private Image _winnerImage;
-
-    [SerializeField] private Sprite _player1Sprite;
-    [SerializeField] private Sprite _player2Sprite;
+    [SerializeField] private GameObject _player1Panel;
+    [SerializeField] private GameObject _player2Panel;
 
     private void Start()
     {
+        _player1Panel.SetActive(false);
+        _player2Panel.SetActive(false);
+
         IngameEndSequence.PlayerKind winner = IngameEndSequence.WinnerKind;
 
-        _winnerText.text = GetWinnerText(winner);
-        _winnerImage.sprite = GetWinnerSprite(winner);
+         GameObject panel = GetWinnerSprite(winner);
+        panel.SetActive(true);
     }
 
-    private string GetWinnerText(IngameEndSequence.PlayerKind player)
+    private GameObject GetWinnerSprite(IngameEndSequence.PlayerKind player)
     {
         switch (player)
         {
             case IngameEndSequence.PlayerKind.Player1:
-                return "プレイヤー１の勝利！";
+                return _player1Panel;
             case IngameEndSequence.PlayerKind.Player2:
-                return "プレイヤー２の勝利！";
-            default:
-                return "No Contest";
-        }
-    }
-
-    private Sprite GetWinnerSprite(IngameEndSequence.PlayerKind player)
-    {
-        switch (player)
-        {
-            case IngameEndSequence.PlayerKind.Player1:
-                return _player1Sprite;
-            case IngameEndSequence.PlayerKind.Player2:
-                return _player2Sprite;
+                return _player2Panel;
             default:
                 return null;
         }

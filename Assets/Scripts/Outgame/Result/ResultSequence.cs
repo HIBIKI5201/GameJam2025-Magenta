@@ -23,7 +23,7 @@ public class ResultSequence : MonoBehaviour
     private async void Start()
     {
         // 1秒間待機します。
-        await Awaitable.WaitForSecondsAsync(1f);
+        await Awaitable.WaitForSecondsAsync(5f);
 
         // タイトルシーンへ遷移します。
         SceneManager.LoadScene(_titleSceneName);
