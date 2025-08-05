@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -34,6 +34,7 @@ public class SurroundBulletGenerator : IBulletGenerator
 
     // --- privateフィールド ---
     private Transform _ownerTransform;
+    private Transform _rootTransform;
     private float _shootTimer;
 
     /// <summary>
@@ -41,9 +42,10 @@ public class SurroundBulletGenerator : IBulletGenerator
     /// </summary>
     /// <param name="ownerTransform">弾を発射するオブジェクトのTransform。</param>
     /// <param name="targetTransform">ホーミングのターゲットとなるオブジェクトのTransform（このジェネレーターでは使用しません）。</param>
-    public void Initialize(Transform ownerTransform, Transform targetTransform)
+    public void Initialize(Transform ownerTransform, Transform targetTransform, Transform root)
     {
         _ownerTransform = ownerTransform;
+        _rootTransform = root;
     }
 
     /// <summary>
@@ -82,6 +84,8 @@ public class SurroundBulletGenerator : IBulletGenerator
             SurroundBulletController bullet = GameObject.Instantiate(_surroundBulletPrefab, instancePosition, Quaternion.identity);
             // 弾を初期化します。
             bullet.Initialize(_ownerTransform);
+            // 生成した弾をルートオブジェクトの子として設定します。
+            bullet.transform.SetParent(_rootTransform);
 
             // 弾の移動方向を設定します。
             Vector3 direction = (instancePosition - _ownerTransform.position).normalized;

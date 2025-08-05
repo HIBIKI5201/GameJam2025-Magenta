@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -26,6 +26,7 @@ public class BeamBulletGenerator : IBulletGenerator
     // --- privateフィールド ---
     private Transform _ownerTransform;
     private Transform _targetTransform;
+    private Transform _rootTransform;
     private float _shootTimer;
 
     /// <summary>
@@ -33,10 +34,11 @@ public class BeamBulletGenerator : IBulletGenerator
     /// </summary>
     /// <param name="ownerTransform">弾を発射するオブジェクトのTransform。</param>
     /// <param name="targetTransform">ターゲットとなるオブジェクトのTransform。</param>
-    public void Initialize(Transform ownerTransform, Transform targetTransform)
+    public void Initialize(Transform ownerTransform, Transform targetTransform, Transform root)
     {
         _ownerTransform = ownerTransform;
         _targetTransform = targetTransform;
+        _rootTransform = root;
     }
 
     /// <summary>
@@ -70,5 +72,7 @@ public class BeamBulletGenerator : IBulletGenerator
         
         // ビーム弾を初期化します。
         bullet.Initialize(_ownerTransform);
+        // ビーム弾をルートの子として設定します。
+        bullet.transform.SetParent(_rootTransform, false);
     }
 }

@@ -25,6 +25,8 @@ public class Player_Main_System : MonoBehaviour
     [Header("使用可能な弾ジェネレーター")]
     [SerializeReference, SubclassSelector]
     private IBulletGenerator[] _bulletGenerators;
+    [SerializeField]
+    private Transform _bulletRoot;
 
     // --- privateフィールド ---
     private Player_Main_System _opponent;
@@ -63,7 +65,7 @@ public class Player_Main_System : MonoBehaviour
         // 全ての弾ジェネレーターを初期化します。
         foreach (var generator in _bulletGenerators)
         {
-            generator.Initialize(transform, _opponent.transform);
+            generator.Initialize(transform, _opponent.transform, _bulletRoot);
         }
 
         // 初期選択されている弾ジェネレーターに合わせて移動速度の倍率を設定します。
