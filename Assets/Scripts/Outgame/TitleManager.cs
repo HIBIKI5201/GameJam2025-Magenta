@@ -107,17 +107,17 @@ public class TitleManager : MonoBehaviour
     private void CheckBothPlayersPressed()
     {
         // 両プレイヤーが入力している場合、ゲームシーンへ遷移します。
-        //if (_isPlayer1MovePressed && _isPlayer2MovePressed)
-        //{
-        //    if (uiManager.GetOperationPanelActive())
-        //    {
-        //        SceneManager.LoadScene(_gameSceneName);
-        //    }
-        //    else
-        //    {
-        //        uiManager.OperationPanelChange();
-        //    }
-        //}
+        if (_isPlayer1MovePressed && _isPlayer2MovePressed)
+        {
+            if (uiManager.GetOperationPanelActive())
+            {
+                SceneLoadUtility.LoadScene(_gameSceneName);
+            }
+            else
+            {
+                //uiManager.OperationPanelChange();
+            }
+        }
     }
 
     /// <summary>
