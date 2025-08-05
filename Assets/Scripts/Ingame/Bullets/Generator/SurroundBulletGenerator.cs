@@ -7,6 +7,8 @@ using UnityEngine;
 [Serializable]
 public class SurroundBulletGenerator : IBulletGenerator
 {
+    public event Action<float> OnIntervalElapsed;
+
     // --- プロパティ ---
     /// <summary>
     /// この弾ジェネレーター使用時のプレイヤーの移動速度倍率を取得します。
@@ -32,6 +34,11 @@ public class SurroundBulletGenerator : IBulletGenerator
     [Header("この弾ジェネレーター使用時のプレイヤーの移動速度倍率")]
     [SerializeField] private float _movementSpeedScale = 1f;
 
+    [SerializeField]
+    private SelectBulletManager _ui;
+    [SerializeField]
+    private int _index;
+
     // --- privateフィールド ---
     private Transform _ownerTransform;
     private Transform _rootTransform;
@@ -46,6 +53,22 @@ public class SurroundBulletGenerator : IBulletGenerator
     {
         _ownerTransform = ownerTransform;
         _rootTransform = root;
+
+        // UIの初期化
+        OnIntervalElapsed += n => _ui[_index].Guage.fillAmount = n;
+    }
+
+    public void SetSelected(bool active)
+    {
+        // UIの選択状態を更新します。
+        _ui[_index].SelectedHighLight.gameObject.SetActive(active);
+
+        if (!active)
+        {
+            _shootTimer = 0f; // 選択解除時にタイマーをリセットします。
+            OnIntervalElapsed?.Invoke(1f); // UIのゲージをリセットします。
+        }
+
     }
 
     /// <summary>
@@ -63,6 +86,9 @@ public class SurroundBulletGenerator : IBulletGenerator
             GenerateBullets();
             _shootTimer = 0f; // タイマーをリセットします。
         }
+
+        // 発射間隔の経過を通知します。
+        OnIntervalElapsed?.Invoke(1 - _shootTimer / _shootInterval);
     }
 
     /// <summary>

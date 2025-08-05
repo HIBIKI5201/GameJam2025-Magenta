@@ -7,6 +7,8 @@ using UnityEngine;
 [Serializable]
 public class BeamBulletGenerator : IBulletGenerator
 {
+    public event Action<float> OnIntervalElapsed;
+
     // --- プロパティ ---
     /// <summary>
     /// この弾ジェネレーター使用時のプレイヤーの移動速度倍率を取得します。
@@ -22,6 +24,11 @@ public class BeamBulletGenerator : IBulletGenerator
 
     [Header("この弾ジェネレーター使用時のプレイヤーの移動速度倍率")]
     [SerializeField] private float _movementSpeedScale = 1f;
+
+    [SerializeField]
+    private SelectBulletManager _ui;
+    [SerializeField]
+    private int _index;
 
     // --- privateフィールド ---
     private Transform _ownerTransform;
@@ -39,6 +46,22 @@ public class BeamBulletGenerator : IBulletGenerator
         _ownerTransform = ownerTransform;
         _targetTransform = targetTransform;
         _rootTransform = root;
+
+        // UIの初期化
+        OnIntervalElapsed += n => _ui[_index].Guage.fillAmount = n;
+    }
+
+    public void SetSelected(bool active)
+    {
+        // UIの選択状態を更新します。
+        _ui[_index].SelectedHighLight.gameObject.SetActive(active);
+
+        if (!active)
+        {
+            _shootTimer = 0f; // 選択解除時にタイマーをリセットします。
+            OnIntervalElapsed?.Invoke(1f); // UIのゲージをリセットします。
+        }
+
     }
 
     /// <summary>
@@ -56,6 +79,9 @@ public class BeamBulletGenerator : IBulletGenerator
             GenerateBullet();
             _shootTimer = 0f; // タイマーをリセットします。
         }
+
+        // イベントを発火します。
+        OnIntervalElapsed?.Invoke(1 - _shootTimer / _shootInterval);
     }
 
     /// <summary>

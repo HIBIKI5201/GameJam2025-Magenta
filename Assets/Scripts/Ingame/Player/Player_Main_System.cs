@@ -27,6 +27,8 @@ public class Player_Main_System : MonoBehaviour
     private IBulletGenerator[] _bulletGenerators;
     [SerializeField]
     private Transform _bulletRoot;
+    [SerializeField]
+    private SelectBulletManager _bulletUI;
 
     // --- privateフィールド ---
     private Player_Main_System _opponent;
