@@ -73,6 +73,7 @@ public class Player_Main_System : MonoBehaviour
         _bulletGenerators[_selectedBulletGeneratorIndex].SetSelected(true);
         // 初期選択されている弾ジェネレーターに合わせて移動速度の倍率を設定します。
         _playerMovement.ApplyMoveSpeedScale(_bulletGenerators[_selectedBulletGeneratorIndex].MoveSpeedScale);
+        _playerMovement.SetTarget(opponent.transform);
     }
 
     /// <summary>
