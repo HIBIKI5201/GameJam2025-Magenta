@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class TitleUiManager : MonoBehaviour
 {
+    [SerializeField] private GameObject Press_Space;
     [SerializeField] private GameObject title_Panel;
 
     [SerializeField] private float flashing_Max;
@@ -22,13 +23,13 @@ public class TitleUiManager : MonoBehaviour
 
     private Action Operation_End_Action;
 
-    private int page_num;
+    [SerializeField] private int page_num;
 
     private void Start()
     {
         TitlePanelChange();
 
-        Operation_Page.Clear();
+        if(Operation_Page.Count != 0) Operation_Page.Clear();
         for (int i = 0; i < Operation_Panel.transform.childCount; i++)
         {
             Debug.Log("追加");
@@ -48,6 +49,7 @@ public class TitleUiManager : MonoBehaviour
     }
     private void FlashingFunc()
     {
+
         float time = Time.deltaTime;
         int num = 0;
         foreach (var flashing_image in flashing_Image)
@@ -88,13 +90,24 @@ public class TitleUiManager : MonoBehaviour
     {
         for(int i = 0; i < Operation_Page.Count; i++)
         {
-            if(i == page_num)
+            if (Operation_Panel.activeSelf)
+            {
+                Press_Space.SetActive(false);
+            }
+            else
+            {
+                Press_Space.SetActive(true);
+            }
+
+
+            if (i == page_num)
             {
                 Operation_Page[i].SetActive(true);
             }
             else
             {
                 Operation_Page[i].SetActive(false);
+                Press_Space.SetActive(true);
             }
         }
     }
@@ -104,13 +117,13 @@ public class TitleUiManager : MonoBehaviour
 
         float vec = context.ReadValue<float>();
 
-        if(vec > 0)
-        {
-            if (page_num == Operation_Page.Count - 1) return;
-            page_num++;
 
+        if (vec > 0)
+        {
+            if (page_num + 1 >= Operation_Page.Count) return;
+            page_num++;
         }
-        else if(vec < 0)
+        else if (vec < 0)
         {
             if (page_num == 0) return;
             page_num--;

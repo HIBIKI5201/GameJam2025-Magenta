@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using SymphonyFrameWork.System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 /// <summary>
 /// タイトル画面のUIとシーン遷移を管理します。
@@ -10,6 +12,8 @@ using UnityEngine.UI;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] private TitleUiManager uiManager;
+    [SerializeField] private AudioClip bgm;
+    [SerializeField] private AudioSource source;
     // --- シリアライズされたフィールド ---
     [Header("ゲームシーンのシーン名")]
     [SerializeField] private string _gameSceneName;
@@ -32,6 +36,12 @@ public class TitleManager : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
     }
 
+    private void Start()
+    {
+        source = AudioManager.GetAudioSource("BGM");
+        source.clip = bgm;
+        source.Play();
+    }
     /// <summary>
     /// Unityのライフサイクルメソッド。コンポーネントが有効になった時に呼び出されます。
     /// </summary>
@@ -66,6 +76,8 @@ public class TitleManager : MonoBehaviour
         _playerInput.actions["Select2"].started -= uiManager.PageChangerAction;
 
         _playerInput.actions["Decision"].started -= uiManager.OperationPanelChange;
+
+        source.Stop();
     }
 
     /// <summary>
