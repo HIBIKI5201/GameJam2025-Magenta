@@ -61,8 +61,7 @@ public class SurroundBulletGenerator : IBulletGenerator
     public void SetSelected(bool active)
     {
         // UIの選択状態を更新します。
-        _ui[_index].SelectedHighLight.gameObject.SetActive(active);
-
+        _ui.SetHighLight(_index, active);
         if (!active)
         {
             _shootTimer = 0f; // 選択解除時にタイマーをリセットします。
