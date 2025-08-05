@@ -106,11 +106,9 @@ public class TitleUiManager : MonoBehaviour
 
         if(vec > 0)
         {
+            if (page_num == Operation_Page.Count - 1) return;
             page_num++;
-            if (page_num == Operation_Page.Count)
-            {
-                Operation_End_Action.Invoke();
-            }
+
         }
         else if(vec < 0)
         {
@@ -123,15 +121,20 @@ public class TitleUiManager : MonoBehaviour
     
     public bool GetOperationPanelActive()
     {
-        return Operation_Panel.activeSelf;
+        if (page_num == Operation_Page.Count - 1)
+        {
+            return true;
+        }
+        return false;
     }
     [Serializable]
     class Flashing_Image
     {
         [SerializeField] private List<Image> main_Image;
+        [SerializeField] private Text text;
         [SerializeField] private Image dicision_Image;
 
-        private float count;
+        public float count;
 
         private bool is_Flashing = false;
         private bool is_Decision;
@@ -160,7 +163,7 @@ public class TitleUiManager : MonoBehaviour
         }
         private void SetFlaching()
         {
-            dicision_Image.color = Color.clear;
+            if(dicision_Image) dicision_Image.color = Color.clear;
             if (is_Flashing)
             {
                 ChangeColor(flashing_Color_Max);
@@ -184,7 +187,6 @@ public class TitleUiManager : MonoBehaviour
             if (is_Decision)
             {
                 ChangeColor(Dicision_Color);
-                dicision_Image.color = dicision_Image_Color;
             }
             else
             {
@@ -193,6 +195,7 @@ public class TitleUiManager : MonoBehaviour
         }
         public void ChangeColor(Color color)
         {
+            if(text)text.color = color;
             foreach (var item in main_Image)
             {
                 item.color = color;
