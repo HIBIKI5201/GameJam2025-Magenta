@@ -858,7 +858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 296619926}
-  bgm: {fileID: 0}
+  bgm: {fileID: 8300000, guid: b66a66b8d23c97a4488a6162bb3e6591, type: 3}
+  source: {fileID: 0}
   _gameSceneName: Ingame
 --- !u!114 &296619924
 MonoBehaviour:
@@ -956,6 +957,7 @@ MonoBehaviour:
     dicision_Image_Color: {r: 1, g: 1, b: 1, a: 0}
   Operation_Panel: {fileID: 726359932}
   Operation_Page: []
+  page_num: 0
 --- !u!82 &296619927
 AudioSource:
   m_ObjectHideFlags: 0
