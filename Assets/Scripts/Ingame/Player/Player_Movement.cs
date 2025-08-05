@@ -1,4 +1,4 @@
-using SymphonyFrameWork.Attribute;
+﻿using SymphonyFrameWork.Attribute;
 using System;
 using UnityEngine;
 
@@ -24,6 +24,10 @@ public class Player_Movement : MonoBehaviour
     [Header("移動可能範囲の中心となるTransform")]
     [SerializeField] private Transform _movementAreaTransform;
 
+    [SerializeField]
+    private SpriteRenderer _character;
+    private Transform _target;
+
     /// <summary>
     /// Unityのライフサイクルメソッド。オブジェクトの初期化時に呼び出されます。
     /// </summary>
@@ -40,6 +44,11 @@ public class Player_Movement : MonoBehaviour
     public void SetMoveInputFunction(Func<Vector2> inputFunction)
     {
         _moveInputFunction = inputFunction;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        _target = target;
     }
 
     /// <summary>
@@ -73,6 +82,7 @@ public class Player_Movement : MonoBehaviour
     {
         // プレイヤーの移動処理を更新します。
         UpdateMovement();
+        UpdateRotate();
     }
 
     /// <summary>
@@ -96,5 +106,11 @@ public class Player_Movement : MonoBehaviour
                 _movementAreaTransform.position.y + _movementArea.y),
             transform.position.z // Z座標は変更しません。
         );
+    }
+
+    private void UpdateRotate()
+    {
+        Vector3 dir = (_target.position - transform.position).normalized;
+        _character.flipX = dir.x <= 0;
     }
 }

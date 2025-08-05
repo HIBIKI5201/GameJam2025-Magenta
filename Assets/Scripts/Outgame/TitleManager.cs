@@ -1,6 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// タイトル画面のUIとシーン遷移を管理します。
@@ -8,6 +9,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(PlayerInput))]
 public class TitleManager : MonoBehaviour
 {
+    [SerializeField] private TitleUiManager uiManager;
     // --- シリアライズされたフィールド ---
     [Header("ゲームシーンのシーン名")]
     [SerializeField] private string _gameSceneName;
@@ -22,6 +24,10 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        if (uiManager) uiManager.SetFunction(
+            () => _isPlayer1MovePressed,
+            () => _isPlayer2MovePressed
+            );
         _playerInput = GetComponent<PlayerInput>();
     }
 
@@ -97,8 +103,14 @@ public class TitleManager : MonoBehaviour
         // 両プレイヤーが入力している場合、ゲームシーンへ遷移します。
         if (_isPlayer1MovePressed && _isPlayer2MovePressed)
         {
-            Debug.Log("両方押されたのでシーンを移動します！");
-            SceneManager.LoadScene(_gameSceneName);
+            if (uiManager.GetOperationPanelActive())
+            {
+                SceneManager.LoadScene(_gameSceneName);
+            }
+            else
+            {
+                uiManager.OperationPanelChange();
+            }
         }
     }
 

@@ -214,6 +214,7 @@ MonoBehaviour:
   _playerRigidbody: {fileID: 442735243260811610}
   _movementArea: {x: 0, y: 0, z: 0}
   _movementAreaTransform: {fileID: 0}
+  _character: {fileID: 6470512518603040068}
 --- !u!114 &6510670903484693075
 MonoBehaviour:
   m_ObjectHideFlags: 0

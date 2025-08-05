@@ -1,3 +1,4 @@
+﻿using SymphonyFrameWork.System;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,8 @@ public class IngameStartSequence : MonoBehaviour
     [Header("プレイヤーマネージャー")]
     [SerializeField] private PlayerManager _playerManager;
 
+    [SerializeField]
+    private AudioClip _bgm;
     /// <summary>
     /// Unityのライフサイクルメソッド。オブジェクトの初期化時に呼び出されます。
     /// </summary>
@@ -37,6 +40,13 @@ public class IngameStartSequence : MonoBehaviour
         else
         {
             Debug.LogError("IngameEndSequenceコンポーネントが見つかりません。", this);
+        }
+
+        if (_bgm)
+        {
+            AudioSource source = AudioManager.GetAudioSource(AudioGroupTypeEnum.BGM.ToString());
+            source.clip = _bgm;
+            source.Play();
         }
     }
 }

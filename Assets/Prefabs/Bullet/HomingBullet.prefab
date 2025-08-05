@@ -71,6 +71,7 @@ MonoBehaviour:
   _movementSpeed: 10
   _damageAmount: 1
   _lifetime: 5
+  _shootSound: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
 --- !u!1 &7774283522657353273
 GameObject:
   m_ObjectHideFlags: 0

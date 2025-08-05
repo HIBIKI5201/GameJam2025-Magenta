@@ -53,6 +53,8 @@ MonoBehaviour:
   _firingTime: 2.5
   _horizonRange: 40
   _damage: 5
+  _chargeSound: {fileID: 8300000, guid: 80e397195ea2940b69ee7bdbded856a5, type: 3}
+  _shootSound: {fileID: 8300000, guid: 35fbad8cdde724f11ba6481f1e64af71, type: 3}
 --- !u!65 &498418446741150742
 BoxCollider:
   m_ObjectHideFlags: 0
