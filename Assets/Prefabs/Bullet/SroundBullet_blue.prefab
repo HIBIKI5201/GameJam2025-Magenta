@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6293472905211874275}
   - component: {fileID: -272978411851827403}
   m_Layer: 6
-  m_Name: SroundBullet
+  m_Name: SroundBullet_blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9fad4fbee454d824ca8330e09ad067b1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8d1f398d55472c4bac0da36f4321930, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -118,6 +118,18 @@ PrefabInstance:
       propertyPath: _selectInputActionName
       value: Select1
       objectReference: {fileID: 0}
+    - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: managedReferences[713893209644204319]._beamBulletPrefab
+      value: 
+      objectReference: {fileID: 6879660833680088809, guid: 25643c813f6e6bc43b168560e311b599, type: 3}
+    - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: managedReferences[713893209644204461]._homingBulletPrefab
+      value: 
+      objectReference: {fileID: 7740359617280864561, guid: e6d83f69eab4bbf4687339ccf802d7f3, type: 3}
+    - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: managedReferences[713893209644204320]._surroundBulletPrefab
+      value: 
+      objectReference: {fileID: -6293472905211874275, guid: 569f626d6774d944b9107a4209c91388, type: 3}
     - target: {fileID: 4535186931121036558, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
