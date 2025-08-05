@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -6,10 +6,22 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class IngameEndSequence : MonoBehaviour
 {
+    public static PlayerKind WinnerKind { get; private set; }
+
+    public enum PlayerKind
+    {
+        Player1,
+        Player2
+    }
+
     // --- シリアライズされたフィールド ---
     [Header("リザルトシーンのシーン名")]
     [SerializeField] private string _resultSceneName = "Result";
 
+    [SerializeField]
+    private Player_Main_System _player1;
+    [SerializeField]
+    private Player_Main_System _player2;
     // --- privateフィールド ---
     private PlayerManager _playerManager;
 
@@ -27,11 +39,28 @@ public class IngameEndSequence : MonoBehaviour
     /// <summary>
     /// 任意のプレイヤーが死亡した際に呼び出されるイベントハンドラです。
     /// </summary>
-    private async void OnAnyPlayerDeadHandler()
+    private async void OnAnyPlayerDeadHandler(Player_Main_System losePlayer)
     {
         Debug.Log("ゲーム終了。");
         // プレイヤーの入力を無効化します。
         _playerManager.DisablePlayerInput();
+
+        // 勝者のプレイヤーを決定します。
+        if (losePlayer == _player1)
+        {
+            WinnerKind = PlayerKind.Player2;
+            Debug.Log("プレイヤー2が勝利しました。");
+        }
+        else if (losePlayer == _player2)
+        {
+            WinnerKind = PlayerKind.Player1;
+            Debug.Log("プレイヤー1が勝利しました。");
+        }
+        else
+        {
+            Debug.LogError("不明なプレイヤーが死亡しました。", this);
+            return;
+        }
 
         // 2秒間待機します。
         await Awaitable.WaitForSecondsAsync(2f);

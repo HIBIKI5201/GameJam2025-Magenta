@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,6 +7,8 @@ using UnityEngine;
 [Serializable]
 public class SurroundBulletGenerator : IBulletGenerator
 {
+    public event Action<float> OnIntervalElapsed;
+
     // --- プロパティ ---
     /// <summary>
     /// この弾ジェネレーター使用時のプレイヤーの移動速度倍率を取得します。
@@ -32,8 +34,14 @@ public class SurroundBulletGenerator : IBulletGenerator
     [Header("この弾ジェネレーター使用時のプレイヤーの移動速度倍率")]
     [SerializeField] private float _movementSpeedScale = 1f;
 
+    [SerializeField]
+    private SelectBulletManager _ui;
+    [SerializeField]
+    private int _index;
+
     // --- privateフィールド ---
     private Transform _ownerTransform;
+    private Transform _rootTransform;
     private float _shootTimer;
 
     /// <summary>
@@ -41,9 +49,25 @@ public class SurroundBulletGenerator : IBulletGenerator
     /// </summary>
     /// <param name="ownerTransform">弾を発射するオブジェクトのTransform。</param>
     /// <param name="targetTransform">ホーミングのターゲットとなるオブジェクトのTransform（このジェネレーターでは使用しません）。</param>
-    public void Initialize(Transform ownerTransform, Transform targetTransform)
+    public void Initialize(Transform ownerTransform, Transform targetTransform, Transform root)
     {
         _ownerTransform = ownerTransform;
+        _rootTransform = root;
+
+        // UIの初期化
+        OnIntervalElapsed += n => _ui[_index].Guage.fillAmount = n;
+    }
+
+    public void SetSelected(bool active)
+    {
+        // UIの選択状態を更新します。
+        _ui.SetHighLight(_index, active);
+        if (!active)
+        {
+            _shootTimer = 0f; // 選択解除時にタイマーをリセットします。
+            OnIntervalElapsed?.Invoke(1f); // UIのゲージをリセットします。
+        }
+
     }
 
     /// <summary>
@@ -61,6 +85,9 @@ public class SurroundBulletGenerator : IBulletGenerator
             GenerateBullets();
             _shootTimer = 0f; // タイマーをリセットします。
         }
+
+        // 発射間隔の経過を通知します。
+        OnIntervalElapsed?.Invoke(1 - _shootTimer / _shootInterval);
     }
 
     /// <summary>
@@ -82,6 +109,8 @@ public class SurroundBulletGenerator : IBulletGenerator
             SurroundBulletController bullet = GameObject.Instantiate(_surroundBulletPrefab, instancePosition, Quaternion.identity);
             // 弾を初期化します。
             bullet.Initialize(_ownerTransform);
+            // 生成した弾をルートオブジェクトの子として設定します。
+            bullet.transform.SetParent(_rootTransform);
 
             // 弾の移動方向を設定します。
             Vector3 direction = (instancePosition - _ownerTransform.position).normalized;

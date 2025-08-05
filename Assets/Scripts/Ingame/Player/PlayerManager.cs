@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     // --- イベント ---
-    public event Action OnAnyPlayerDead;
+    public event Action<Player_Main_System> OnAnyPlayerDead;
 
     // --- シリアライズされたフィールド ---
     [Header("プレイヤーの移動範囲")]
@@ -100,16 +100,7 @@ public class PlayerManager : MonoBehaviour
     /// <param name="player">対象のプレイヤー。</param>
     private void SubscribePlayerDeathEvent(Player_Main_System player)
     {
-        player.PlayerStatus.OnDeath += HandlePlayerDeath;
-    }
-
-    /// <summary>
-    /// プレイヤーの死亡イベントを処理します。
-    /// </summary>
-    private void HandlePlayerDeath()
-    {
-        // いずれかのプレイヤーが死亡したことを外部に通知します。
-        OnAnyPlayerDead?.Invoke();
+        player.PlayerStatus.OnDeath += () => OnAnyPlayerDead?.Invoke(player);
     }
 
     /// <summary>
@@ -120,21 +111,5 @@ public class PlayerManager : MonoBehaviour
         // 移動可能範囲を視覚的に分かりやすくするためにワイヤーフレームで表示します。
         Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
         Gizmos.DrawWireCube(_movementAreaTransform.position, _movementArea * 2f);
-    }
-
-    /// <summary>
-    /// このコンポーネントが破棄される際に呼び出されます。
-    /// </summary>
-    private void OnDestroy()
-    {
-        // メモリリークを防ぐため、イベントの購読を解除します。
-        if (_playerSystems == null) return;
-        foreach (var player in _playerSystems)
-        {
-            if (player != null)
-            {
-                player.PlayerStatus.OnDeath -= HandlePlayerDeath;
-            }
-        }
     }
 }

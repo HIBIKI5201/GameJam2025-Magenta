@@ -1,3 +1,4 @@
+﻿using SymphonyFrameWork.System;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +13,8 @@ public class SurroundBulletController : MonoBehaviour
     [Header("弾丸が与えるダメージ量")]
     [SerializeField] private float _damageAmount = 1f;
 
+    [SerializeField]
+    private AudioClip _shootSound;
     // --- privateフィールド ---
     private Vector2 _moveDirection = Vector2.up;
     private Transform _owner;
@@ -23,6 +26,8 @@ public class SurroundBulletController : MonoBehaviour
     public void Initialize(Transform ownerTransform)
     {
         _owner = ownerTransform;
+
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString()).PlayOneShot(_shootSound);
     }
 
     /// <summary>

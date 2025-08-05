@@ -1,3 +1,4 @@
+﻿using SymphonyFrameWork.System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,6 +28,10 @@ public class BeamBulletController : MonoBehaviour
     [Header("ビームが与えるダメージ量")]
     [SerializeField] private float _damage = 1f;
 
+    [SerializeField]
+    private AudioClip _chargeSound;
+    [SerializeField]
+    private AudioClip _shootSound;
     // --- privateフィールド ---
     private Vector3 _initialPosition;
     private Transform _owner;
@@ -89,8 +94,11 @@ public class BeamBulletController : MonoBehaviour
     /// </summary>
     private IEnumerator ScaleSequence()
     {
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString()).PlayOneShot(_chargeSound);
         // 最初にY軸（縦）方向にビームを伸ばします。
         yield return TimeToScale(1f, new Vector3(transform.localScale.x, _verticalRange, 1f));
+
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString()).PlayOneShot(_shootSound);
         // 次にX軸（横）方向にビームを伸ばします。
         yield return TimeToScale(_launchTime, new Vector3(_horizonRange, transform.localScale.y, 1f));
         // 発射状態を一定時間維持します。
@@ -133,11 +141,8 @@ public class BeamBulletController : MonoBehaviour
             float widthDelta = currentWidth - previousWidth;
 
             // X軸が伸びた（幅が増加した）場合、ビームの基点がずれないように位置を補正します。
-            if (widthDelta > 0.001f) // 浮動小数点数の誤差を考慮します。
-            {
-                // 幅の増加量の半分だけ、オブジェクトの右方向に移動させます。
-                transform.position += transform.right * (widthDelta / PIVOT_OFFSET_FACTOR);
-            }
+            // 横幅増加に合わせて座標を移動させる処理
+            transform.position = _initialPosition + transform.right * (transform.localScale.x / PIVOT_OFFSET_FACTOR);
 
             yield return null;
         }

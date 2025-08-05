@@ -1,3 +1,4 @@
+﻿using System;
 using UnityEngine;
 
 /// <summary>
@@ -15,7 +16,9 @@ public interface IBulletGenerator
     /// </summary>
     /// <param name="ownerTransform">弾を発射するオブジェクトのTransform。</param>
     /// <param name="targetTransform">ターゲットとなるオブジェクトのTransform。</param>
-    public void Initialize(Transform ownerTransform, Transform targetTransform);
+    public void Initialize(Transform ownerTransform, Transform targetTransform, Transform root);
+
+    public void SetSelected(bool active);
 
     /// <summary>
     /// 弾ジェネレーターの更新処理です。毎フレーム呼び出されます。
