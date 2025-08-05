@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 20
-  _movementSpeed: 1
+  _movementSpeed: 10
   _damageAmount: 1
   _lifetime: 5
   _shootSound: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
