@@ -53,7 +53,7 @@ public class ResultManager : MonoBehaviour
 
             if (_holdTime1 >= _requiredHoldTime)
             {
-                SceneManager.LoadScene(_titleSceneName);
+                SceneLoadUtility.LoadScene(_titleSceneName);
                 _isHoldingMove1 = false;
             }
         }
@@ -70,7 +70,7 @@ public class ResultManager : MonoBehaviour
 
             if (_holdTime2 >= _requiredHoldTime)
             {
-                SceneManager.LoadScene(_gameSceneName);
+                SceneLoadUtility.LoadScene(_gameSceneName);
                 _isHoldingMove2 = false;
             }
         }
