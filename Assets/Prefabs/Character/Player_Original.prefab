@@ -175,7 +175,7 @@ MonoBehaviour:
       type: {class: BeamBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
         _beamBulletPrefab: {fileID: 6879660833680088809, guid: df7c0460b42b15a4c89c6cce5bd10d68, type: 3}
-        _shootInterval: 4
+        _shootInterval: 6
         _movementSpeedScale: 1
         _ui: {fileID: 0}
         _index: 0
