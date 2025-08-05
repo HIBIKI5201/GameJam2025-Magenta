@@ -170,14 +170,6 @@ PrefabInstance:
       propertyPath: _moveInputName
       value: Move2
       objectReference: {fileID: 0}
-    - target: {fileID: 6777832859182979456, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6777832859182979456, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
