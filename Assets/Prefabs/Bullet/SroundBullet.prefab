@@ -67,8 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6024d51b49feb8849a7fae6f19ec48c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _damage: 10
+  _movementSpeed: 10
+  _damageAmount: 1
+  _shootSound: {fileID: 8300000, guid: 881e3f52c86c94f26a60718d35627cd8, type: 3}
 --- !u!1 &8066696698197156019
 GameObject:
   m_ObjectHideFlags: 0
