@@ -49,6 +49,7 @@ public class TitleUiManager : MonoBehaviour
     }
     private void FlashingFunc()
     {
+
         float time = Time.deltaTime;
         int num = 0;
         foreach (var flashing_image in flashing_Image)
@@ -89,7 +90,17 @@ public class TitleUiManager : MonoBehaviour
     {
         for(int i = 0; i < Operation_Page.Count; i++)
         {
-            if(i == page_num)
+            if (Operation_Panel.activeSelf)
+            {
+                Press_Space.SetActive(false);
+            }
+            else
+            {
+                Press_Space.SetActive(true);
+            }
+
+
+            if (i == page_num)
             {
                 Operation_Page[i].SetActive(true);
             }
@@ -107,28 +118,12 @@ public class TitleUiManager : MonoBehaviour
         float vec = context.ReadValue<float>();
 
 
-        if (page_num + 2 >= Operation_Page.Count)
-        {
-            Debug.Log(page_num + 2 + "/" + Operation_Page.Count);
-            Press_Space.SetActive(false);
-            if (page_num + 1 >= Operation_Page.Count)
-            {
-                return;
-            }
-        }
-        else
-        {
-            Press_Space.SetActive(true);
-        }
-
         if (vec > 0)
         {
-
-
-
-                page_num++;
+            if (page_num + 1 >= Operation_Page.Count) return;
+            page_num++;
         }
-        else if(vec < 0)
+        else if (vec < 0)
         {
             if (page_num == 0) return;
             page_num--;
