@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SymphonyFrameWork.System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +28,10 @@ public class BeamBulletController : MonoBehaviour
     [Header("ビームが与えるダメージ量")]
     [SerializeField] private float _damage = 1f;
 
+    [SerializeField]
+    private AudioClip _chargeSound;
+    [SerializeField]
+    private AudioClip _shootSound;
     // --- privateフィールド ---
     private Vector3 _initialPosition;
     private Transform _owner;
@@ -89,8 +94,11 @@ public class BeamBulletController : MonoBehaviour
     /// </summary>
     private IEnumerator ScaleSequence()
     {
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString()).PlayOneShot(_chargeSound);
         // 最初にY軸（縦）方向にビームを伸ばします。
         yield return TimeToScale(1f, new Vector3(transform.localScale.x, _verticalRange, 1f));
+
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString()).PlayOneShot(_shootSound);
         // 次にX軸（横）方向にビームを伸ばします。
         yield return TimeToScale(_launchTime, new Vector3(_horizonRange, transform.localScale.y, 1f));
         // 発射状態を一定時間維持します。
