@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -133,11 +133,8 @@ public class BeamBulletController : MonoBehaviour
             float widthDelta = currentWidth - previousWidth;
 
             // X軸が伸びた（幅が増加した）場合、ビームの基点がずれないように位置を補正します。
-            if (widthDelta > 0.001f) // 浮動小数点数の誤差を考慮します。
-            {
-                // 幅の増加量の半分だけ、オブジェクトの右方向に移動させます。
-                transform.position += transform.right * (widthDelta / PIVOT_OFFSET_FACTOR);
-            }
+            // 横幅増加に合わせて座標を移動させる処理
+            transform.position = _initialPosition + transform.right * (transform.localScale.x / PIVOT_OFFSET_FACTOR);
 
             yield return null;
         }
