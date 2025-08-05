@@ -183,10 +183,10 @@ MonoBehaviour:
       type: {class: SurroundBulletGenerator, ns: , asm: Assembly-CSharp}
       data:
         _surroundBulletPrefab: {fileID: -6293472905211874275, guid: e21e4ca83110f6a4fb9f2b91d4650d3b, type: 3}
-        _shootInterval: 0.5
+        _shootInterval: 2
         _numberOfBullets: 16
         _spawnDistance: 0.1
-        _bulletLifetime: 3
+        _bulletLifetime: 5
         _movementSpeedScale: 1
         _ui: {fileID: 0}
         _index: 0
