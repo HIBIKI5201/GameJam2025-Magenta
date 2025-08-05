@@ -858,7 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 296619926}
-  bgm: {fileID: 0}
+  bgm: {fileID: 8300000, guid: b66a66b8d23c97a4488a6162bb3e6591, type: 3}
   source: {fileID: 0}
   _gameSceneName: Ingame
 --- !u!114 &296619924

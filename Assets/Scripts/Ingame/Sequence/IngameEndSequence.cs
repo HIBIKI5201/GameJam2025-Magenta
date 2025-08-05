@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SymphonyFrameWork.System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -64,6 +65,12 @@ public class IngameEndSequence : MonoBehaviour
 
         // 2秒間待機します。
         await Awaitable.WaitForSecondsAsync(2f);
+
+        AudioSource source = AudioManager.GetAudioSource(AudioGroupTypeEnum.BGM.ToString());
+        if (source != null)
+        {
+            source.Stop();
+        }
 
         // リザルトシーンへ遷移します。
         SceneLoadUtility.LoadScene(_resultSceneName);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SymphonyFrameWork.System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ public class ResultManager : MonoBehaviour
     [Header("ホールドゲージ")]
     [SerializeField] private float _requiredHoldTime = 3f;
 
+    [Header("bgm")]
+    [SerializeField]
+    private AudioClip _bgm;
     PlayerInput _playerInput;
     float _holdTime1 = 0f;
     float _holdTime2 = 0f;
@@ -24,6 +28,13 @@ public class ResultManager : MonoBehaviour
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void Start()
+    {
+        AudioSource source = AudioManager.GetAudioSource(AudioGroupTypeEnum.BGM.ToString());
+        source.clip = _bgm;
+        source.Play();
     }
 
     private void OnEnable()
@@ -44,6 +55,12 @@ public class ResultManager : MonoBehaviour
         _playerInput.actions["Move2"].canceled -= OnMove2Canceled;
     }
 
+    private void OnDestroy()
+    {
+        AudioSource source = AudioManager.GetAudioSource(AudioGroupTypeEnum.BGM.ToString());
+        source.Stop();
+    }
+
     private void Update()
     {
         if (_isHoldingMove1)
@@ -53,7 +70,7 @@ public class ResultManager : MonoBehaviour
 
             if (_holdTime1 >= _requiredHoldTime)
             {
-                SceneManager.LoadScene(_titleSceneName);
+                SceneLoadUtility.LoadScene(_titleSceneName);
                 _isHoldingMove1 = false;
             }
         }
@@ -70,7 +87,7 @@ public class ResultManager : MonoBehaviour
 
             if (_holdTime2 >= _requiredHoldTime)
             {
-                SceneManager.LoadScene(_gameSceneName);
+                SceneLoadUtility.LoadScene(_gameSceneName);
                 _isHoldingMove2 = false;
             }
         }

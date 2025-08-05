@@ -173,12 +173,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5995815688161326778, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_Name
-      value: Player_2
+      value: Player_1
       objectReference: {fileID: 0}
     - target: {fileID: 5995815688161326778, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6470512518603040068, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6eb959ce6093d294cba7ac59e1eca296, type: 3}
     - target: {fileID: 6470512518603040068, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_SortingOrder
       value: 1
