@@ -20,9 +20,6 @@ public class TitleUiManager : MonoBehaviour
 
     [SerializeField] private GameObject Operation_Panel;
     [SerializeField] private List<GameObject> Operation_Page;
-
-    [SerializeField] private GameObject Arrow_Object;
-    [SerializeField] private List<GameObject> Operation_Arrow;
     
 
     private Action Operation_End_Action;
@@ -41,16 +38,6 @@ public class TitleUiManager : MonoBehaviour
         }
         SelectedOperationPage();
 
-        if (Operation_Arrow.Count != 0) Operation_Arrow.Clear();
-        for (int i = 0; i < Arrow_Object.transform.childCount; i++)
-        {
-            Debug.Log("追加");
-            Operation_Arrow.Add(Arrow_Object.transform.GetChild(i).gameObject);
-        }
-        foreach (var item in Operation_Arrow)
-        {
-            item.SetActive(false);
-        }
     }
     private void Update()
     {
@@ -92,19 +79,11 @@ public class TitleUiManager : MonoBehaviour
     {
         if (Operation_Panel.activeSelf)
         {
-            foreach (var item in Operation_Arrow)
-            {
-                item.SetActive(true);
-            }
             Operation_Panel.SetActive(false);
             page_num = 0;
         }
         else
         {
-            foreach (var item in Operation_Arrow)
-            {
-                item.SetActive(false);
-            }
             Operation_Panel.SetActive(true);
             SelectedOperationPage();
         }
@@ -115,18 +94,10 @@ public class TitleUiManager : MonoBehaviour
         {
             if (Operation_Panel.activeSelf)
             {
-                foreach (var item in Operation_Arrow)
-                {
-                    item.SetActive(true);
-                }
                 Press_Space.SetActive(false);
             }
             else
             {
-                foreach (var item in Operation_Arrow)
-                {
-                    item.SetActive(false);
-                }
                 Press_Space.SetActive(true);
             }
 
@@ -145,7 +116,6 @@ public class TitleUiManager : MonoBehaviour
     public void PageChangerAction(InputAction.CallbackContext context)
     {
         if (!Operation_Panel.activeSelf) return;
-
         float vec = context.ReadValue<float>();
 
 
@@ -153,6 +123,7 @@ public class TitleUiManager : MonoBehaviour
         {
             if (page_num + 1 >= Operation_Page.Count) return;
             page_num++;
+            Debug.Log(page_num);
         }
         else if (vec < 0)
         {
