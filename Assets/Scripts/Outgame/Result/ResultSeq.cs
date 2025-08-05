@@ -4,14 +4,17 @@ using UnityEngine.UI;
 public class Resultseq : MonoBehaviour
 {
     [SerializeField] private Text _winnerText;
+    [SerializeField] private Image _winnerImage;
+
+    [SerializeField] private Sprite _player1Sprite;
+    [SerializeField] private Sprite _player2Sprite;
 
     private void Start()
     {
-        // IngameEndSequence から勝者を取得
         IngameEndSequence.PlayerKind winner = IngameEndSequence.WinnerKind;
 
-        // 勝者テキストを設定
         _winnerText.text = GetWinnerText(winner);
+        _winnerImage.sprite = GetWinnerSprite(winner);
     }
 
     private string GetWinnerText(IngameEndSequence.PlayerKind player)
@@ -24,6 +27,19 @@ public class Resultseq : MonoBehaviour
                 return "プレイヤー２の勝利！";
             default:
                 return "No Contest";
+        }
+    }
+
+    private Sprite GetWinnerSprite(IngameEndSequence.PlayerKind player)
+    {
+        switch (player)
+        {
+            case IngameEndSequence.PlayerKind.Player1:
+                return _player1Sprite;
+            case IngameEndSequence.PlayerKind.Player2:
+                return _player2Sprite;
+            default:
+                return null;
         }
     }
 }
