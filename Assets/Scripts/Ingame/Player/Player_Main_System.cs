@@ -13,6 +13,7 @@ public class Player_Main_System : MonoBehaviour
     /// </summary>
     public Player_Status PlayerStatus => _playerStatus;
 
+    private event Action Destroy;
     // --- シリアライズされたフィールド ---
     [Header("入力アクション設定")]
     [SerializeField] private string _selectInputActionName;
@@ -56,6 +57,11 @@ public class Player_Main_System : MonoBehaviour
         UpdateBulletGenerator();
     }
 
+    private void OnDestroy()
+    {
+        Destroy?.Invoke();
+    }
+
     /// <summary>
     /// このプレイヤーを初期化します。
     /// </summary>
@@ -88,7 +94,7 @@ public class Player_Main_System : MonoBehaviour
         InputAction selectAction = playerInput.actions[_selectInputActionName];
         selectAction.started += HandleSelectAction;
 
-        _playerStatus.OnDeath += () => selectAction.started -= HandleSelectAction;
+        Destroy += () => selectAction.started -= HandleSelectAction;
         _isPlaying = true;
     }
 

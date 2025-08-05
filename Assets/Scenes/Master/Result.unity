@@ -163,10 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fe513bd3dc7cc43957cc30a5e9fc54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _winnerText: {fileID: 0}
-  _winnerImage: {fileID: 0}
-  _player1Panel: {fileID: 1609108408}
-  _player2Panel: {fileID: 1622800284}
+  _player1Panel: {fileID: 1622800284}
+  _player2Panel: {fileID: 1609108408}
 --- !u!1 &33569103
 GameObject:
   m_ObjectHideFlags: 0
