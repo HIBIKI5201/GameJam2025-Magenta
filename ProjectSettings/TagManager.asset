@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Player1
+  - Player2
+  - Bullet1
+  - Bullet2
   layers:
   - Default
   - TransparentFX
@@ -12,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Bullet
-  - 
+  - BackGround
   - 
   - 
   - 

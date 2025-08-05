@@ -171,10 +171,10 @@ MonoBehaviour:
   _playerInfos:
   - _moveActionName: Move1
     _spawnPosition: {x: 10, y: 0, z: 0}
-    _myLayer: Player1
+    _myTag: Player1
   - _moveActionName: Move2
     _spawnPosition: {x: -10, y: 0, z: 0}
-    _myLayer: Player2
+    _myTag: Player2
 --- !u!114 &381992197
 MonoBehaviour:
   m_ObjectHideFlags: 0

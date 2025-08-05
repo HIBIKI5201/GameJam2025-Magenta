@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfbc9c553bdfa6c47a74e1fae81b87f0, type: 3}
   m_Name: AudioManagerConfig
   m_EditorClassIdentifier: 
-  _audioMixer: {fileID: 0}
-  _audioGroupSettingList: []
+  _audioMixer: {fileID: 24100000, guid: 1f106de91015d8348aadecb0bb8f5386, type: 2}
+  _audioGroupSettingList:
+  - _audioGroupName: Master
+    _exposedParameterName: MasterVolume
+    _isLoop: 0
+  - _audioGroupName: BGM
+    _exposedParameterName: BGMVolume
+    _isLoop: 1
+  - _audioGroupName: SE
+    _exposedParameterName: SEVolume
+    _isLoop: 0
