@@ -26,7 +26,8 @@ public class TitleManager : MonoBehaviour
     {
         if (uiManager) uiManager.SetFunction(
             () => _isPlayer1MovePressed,
-            () => _isPlayer2MovePressed
+            () => _isPlayer2MovePressed,
+            () => SceneLoadUtility.LoadScene(_gameSceneName)
             );
         _playerInput = GetComponent<PlayerInput>();
     }
@@ -42,6 +43,11 @@ public class TitleManager : MonoBehaviour
 
         _playerInput.actions["Move1"].canceled += OnPlayer1MoveCanceled;
         _playerInput.actions["Move2"].canceled += OnPlayer2MoveCanceled;
+
+        _playerInput.actions["Select1"].started += uiManager.PageChangerAction;
+        _playerInput.actions["Select2"].started += uiManager.PageChangerAction;
+
+        _playerInput.actions["Decision"].started += uiManager.OperationPanelChange;
     }
 
     /// <summary>
@@ -55,6 +61,11 @@ public class TitleManager : MonoBehaviour
 
         _playerInput.actions["Move1"].canceled -= OnPlayer1MoveCanceled;
         _playerInput.actions["Move2"].canceled -= OnPlayer2MoveCanceled;
+
+        _playerInput.actions["Select1"].started -= uiManager.PageChangerAction;
+        _playerInput.actions["Select2"].started -= uiManager.PageChangerAction;
+
+        _playerInput.actions["Decision"].started -= uiManager.OperationPanelChange;
     }
 
     /// <summary>
@@ -105,11 +116,11 @@ public class TitleManager : MonoBehaviour
         {
             if (uiManager.GetOperationPanelActive())
             {
-                SceneManager.LoadScene(_gameSceneName);
+                SceneLoadUtility.LoadScene(_gameSceneName);
             }
             else
             {
-                uiManager.OperationPanelChange();
+                //uiManager.OperationPanelChange();
             }
         }
     }

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SymphonyFrameWork.System;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class TitleUiManager : MonoBehaviour
@@ -16,18 +18,33 @@ public class TitleUiManager : MonoBehaviour
     private Func<bool> GetButtonPressed2;
 
     [SerializeField] private GameObject Operation_Panel;
+    [SerializeField] private List<GameObject> Operation_Page;
+
+    private Action Operation_End_Action;
+
+    private int page_num;
+
     private void Start()
     {
         TitlePanelChange();
+
+        Operation_Page.Clear();
+        for (int i = 0; i < Operation_Panel.transform.childCount; i++)
+        {
+            Debug.Log("追加");
+            Operation_Page.Add(Operation_Panel.transform.GetChild(i).gameObject);
+        }
+        SelectedOperationPage();
     }
     private void Update()
     {
         FlashingFunc();
     }
-    public void SetFunction(Func<bool> button1, Func<bool> button2)
+    public void SetFunction(Func<bool> button1, Func<bool> button2, Action operation_end_action)
     {
         GetButtonPressed1 = button1;
         GetButtonPressed2 = button2;
+        Operation_End_Action = operation_end_action;
     }
     private void FlashingFunc()
     {
@@ -54,21 +71,70 @@ public class TitleUiManager : MonoBehaviour
         title_Panel.SetActive(true);
         Operation_Panel.SetActive(false);
     }
-    public void OperationPanelChange()
+    public void OperationPanelChange(InputAction.CallbackContext context) 
     {
-        Operation_Panel.SetActive(true);
+        if (Operation_Panel.activeSelf)
+        {
+            Operation_Panel.SetActive(false);
+            page_num = 0;
+        }
+        else
+        {
+            Operation_Panel.SetActive(true);
+            SelectedOperationPage();
+        }
     }
+    private void SelectedOperationPage()
+    {
+        for(int i = 0; i < Operation_Page.Count; i++)
+        {
+            if(i == page_num)
+            {
+                Operation_Page[i].SetActive(true);
+            }
+            else
+            {
+                Operation_Page[i].SetActive(false);
+            }
+        }
+    }
+    public void PageChangerAction(InputAction.CallbackContext context)
+    {
+        if (!Operation_Panel.activeSelf) return;
+
+        float vec = context.ReadValue<float>();
+
+        if(vec > 0)
+        {
+            if (page_num == Operation_Page.Count - 1) return;
+            page_num++;
+
+        }
+        else if(vec < 0)
+        {
+            if (page_num == 0) return;
+            page_num--;
+        }
+
+        SelectedOperationPage();
+    }
+    
     public bool GetOperationPanelActive()
     {
-        return Operation_Panel.activeSelf;
+        if (page_num == Operation_Page.Count - 1)
+        {
+            return true;
+        }
+        return false;
     }
     [Serializable]
     class Flashing_Image
     {
-        [SerializeField] private Image main_Image;
+        [SerializeField] private List<Image> main_Image;
+        [SerializeField] private Text text;
         [SerializeField] private Image dicision_Image;
 
-        private float count;
+        public float count;
 
         private bool is_Flashing = false;
         private bool is_Decision;
@@ -97,14 +163,14 @@ public class TitleUiManager : MonoBehaviour
         }
         private void SetFlaching()
         {
-            dicision_Image.color = Color.clear;
+            if(dicision_Image) dicision_Image.color = Color.clear;
             if (is_Flashing)
             {
-                main_Image.color = flashing_Color_Max;
+                ChangeColor(flashing_Color_Max);
             }
             else
             {
-                main_Image.color = flashing_Color_Min;
+                ChangeColor(flashing_Color_Min);
             }
         }
         public void FlashingSystem()
@@ -120,12 +186,19 @@ public class TitleUiManager : MonoBehaviour
             is_Decision = is_dicision;
             if (is_Decision)
             {
-                main_Image.color = Dicision_Color;
-                dicision_Image.color = dicision_Image_Color;
+                ChangeColor(Dicision_Color);
             }
             else
             {
                 SetFlaching();
+            }
+        }
+        public void ChangeColor(Color color)
+        {
+            if(text)text.color = color;
+            foreach (var item in main_Image)
+            {
+                item.color = color;
             }
         }
     }
