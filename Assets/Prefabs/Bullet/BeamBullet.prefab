@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _verticalRange: 3
-  _launchTime: 0.7
-  _firingTime: 2.5
+  _launchTime: 0.1
+  _firingTime: 1
   _horizonRange: 40
   _damage: 5
   _chargeSound: {fileID: 8300000, guid: 80e397195ea2940b69ee7bdbded856a5, type: 3}
