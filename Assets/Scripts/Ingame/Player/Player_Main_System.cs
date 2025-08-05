@@ -88,6 +88,7 @@ public class Player_Main_System : MonoBehaviour
         InputAction selectAction = playerInput.actions[_selectInputActionName];
         selectAction.started += HandleSelectAction;
 
+        _playerStatus.OnDeath += () => selectAction.started -= HandleSelectAction;
         _isPlaying = true;
     }
 
