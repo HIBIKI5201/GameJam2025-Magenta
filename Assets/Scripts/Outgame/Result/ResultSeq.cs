@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using SymphonyFrameWork.System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Resultseq : MonoBehaviour
 {
     [SerializeField] private GameObject _player1Panel;
     [SerializeField] private GameObject _player2Panel;
-
     private void Start()
     {
         _player1Panel.SetActive(false);

@@ -68,5 +68,6 @@ public class SurroundBulletController : MonoBehaviour
 
         // プレイヤーにダメージを与えます。
         player.TakeDamage(_damageAmount);
+        Destroy(gameObject);
     }
 }

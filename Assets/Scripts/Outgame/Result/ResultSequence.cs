@@ -10,6 +10,8 @@ public class ResultSequence : MonoBehaviour
     [Header("タイトルシーンのシーン名")]
     [SerializeField] private string _titleSceneName = "Title";
 
+    [SerializeField]
+    private AudioClip _bgm;
     public enum PlayerType
     {
         None = -1,
