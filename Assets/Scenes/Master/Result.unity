@@ -179,8 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _winnerText: {fileID: 785136130}
   _winnerImage: {fileID: 1099616708}
-  _player1Sprite: {fileID: 0}
-  _player2Sprite: {fileID: 0}
+  _player1Sprite: {fileID: 21300000, guid: a9e9988314a3acf4eb117178aa0414f4, type: 3}
+  _player2Sprite: {fileID: 21300000, guid: 98e3a5ac881afcd4eb99e5f2362290b1, type: 3}
 --- !u!1 &33569103
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,8 +573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.659515, y: -46.21251}
-  m_SizeDelta: {x: 160, y: 40.5}
+  m_AnchoredPosition: {x: 9.659515, y: -66.89012}
+  m_SizeDelta: {x: 160, y: 81.8552}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &785136130
 MonoBehaviour:
@@ -1283,6 +1283,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 947121615}
   - {fileID: 1146236026}
+  - {fileID: 569671478}
   - {fileID: 20887817}
   - {fileID: 2003516891}
-  - {fileID: 569671478}
