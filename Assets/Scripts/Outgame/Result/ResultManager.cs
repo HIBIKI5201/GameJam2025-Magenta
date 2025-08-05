@@ -49,6 +49,8 @@ public class ResultManager : MonoBehaviour
         if (_isHoldingMove1)
         {
             _holdTime1 += Time.deltaTime;
+            _gameImage.fillAmount = _holdTime1 / _requiredHoldTime;
+
             if (_holdTime1 >= _requiredHoldTime)
             {
                 SceneManager.LoadScene(_titleSceneName);
@@ -58,11 +60,14 @@ public class ResultManager : MonoBehaviour
         else
         {
             _holdTime1 = 0f;
+            _gameImage.fillAmount = 0f;
         }
 
         if (_isHoldingMove2)
         {
             _holdTime2 += Time.deltaTime;
+            _titleImage.fillAmount = _holdTime2 / _requiredHoldTime;
+
             if (_holdTime2 >= _requiredHoldTime)
             {
                 SceneManager.LoadScene(_gameSceneName);
@@ -72,8 +77,10 @@ public class ResultManager : MonoBehaviour
         else
         {
             _holdTime2 = 0f;
+            _titleImage.fillAmount = 0f;
         }
     }
+
 
     private void OnMove1Started(InputAction.CallbackContext context)
     {
