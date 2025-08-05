@@ -25,8 +25,9 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] private Transform _movementAreaTransform;
 
     [SerializeField]
-    private SpriteRenderer _character;
+    private PlayerAvatarManager _character;
     private Transform _target;
+    private bool _isFlip;
 
     /// <summary>
     /// Unityのライフサイクルメソッド。オブジェクトの初期化時に呼び出されます。
@@ -110,7 +111,14 @@ public class Player_Movement : MonoBehaviour
 
     private void UpdateRotate()
     {
+        if (_character == null) return;
+
         Vector3 dir = (_target.position - transform.position).normalized;
-        _character.flipX = dir.x <= 0;
+        bool isFlip = dir.x <= 0;
+
+        if (isFlip == _isFlip) return;
+
+        _character.FlipX(isFlip);
+        _isFlip = isFlip;
     }
 }

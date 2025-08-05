@@ -3969,6 +3969,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455784015}
     m_Modifications:
+    - target: {fileID: 20444965400749425, guid: 164784a836a2f8a44a7de5b6180462ac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 365833784183832322, guid: 164784a836a2f8a44a7de5b6180462ac, type: 3}
       propertyPath: _onHealthChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
