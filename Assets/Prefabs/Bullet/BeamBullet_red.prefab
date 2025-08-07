@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1078843048502711933}
   - component: {fileID: 8815724566854190041}
   m_Layer: 6
-  m_Name: BeamBullet
+  m_Name: BeamBullet_red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

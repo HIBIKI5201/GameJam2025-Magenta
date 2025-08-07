@@ -20,6 +20,7 @@ public class TitleUiManager : MonoBehaviour
 
     [SerializeField] private GameObject Operation_Panel;
     [SerializeField] private List<GameObject> Operation_Page;
+    
 
     private Action Operation_End_Action;
 
@@ -36,6 +37,7 @@ public class TitleUiManager : MonoBehaviour
             Operation_Page.Add(Operation_Panel.transform.GetChild(i).gameObject);
         }
         SelectedOperationPage();
+
     }
     private void Update()
     {
@@ -114,7 +116,6 @@ public class TitleUiManager : MonoBehaviour
     public void PageChangerAction(InputAction.CallbackContext context)
     {
         if (!Operation_Panel.activeSelf) return;
-
         float vec = context.ReadValue<float>();
 
 
@@ -122,6 +123,7 @@ public class TitleUiManager : MonoBehaviour
         {
             if (page_num + 1 >= Operation_Page.Count) return;
             page_num++;
+            Debug.Log(page_num);
         }
         else if (vec < 0)
         {
