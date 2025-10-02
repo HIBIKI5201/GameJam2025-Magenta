@@ -1,4 +1,5 @@
 ﻿using SymphonyFrameWork.Attribute;
+using SymphonyFrameWork.System;
 using System;
 using UnityEngine;
 
@@ -20,6 +21,11 @@ public class Player_Status : MonoBehaviour
     // --- シリアライズされたフィールド ---
     [Header("プレイヤーのステータス情報")]
     [SerializeField] private PlayerData _playerData;
+
+    [SerializeField]
+    private PlayerAvatarManager _character;
+    [SerializeField]
+    private AudioClip _damageSound;
 
     // --- privateフィールド ---
     [SerializeField, ReadOnly] private float _currentHealth;
@@ -63,8 +69,13 @@ public class Player_Status : MonoBehaviour
         // 体力を減少させます。
         _currentHealth -= damageAmount;
 
+        // ヒットエフェクトを再生します。
+        _character.HitEffect(0.5f, 3, 2);
+
         // 無敵時間を設定します。
         _invincibilityTimer = Time.time + _playerData.InvincibilityTime;
+
+        AudioManager.GetAudioSource(AudioGroupTypeEnum.SE.ToString())?.PlayOneShot(_damageSound);
 
         // 体力が0以下になった場合の処理。
         if (_currentHealth <= 0)
