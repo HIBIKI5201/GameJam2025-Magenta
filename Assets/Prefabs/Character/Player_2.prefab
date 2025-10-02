@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6105033231777358197}
   - component: {fileID: 7191334933296487146}
   - component: {fileID: 8519553965087046428}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "\u6C34\u8272\u30DF\u30CB\u30AD\u30E3\u30E9"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: ab43d6b57c3759b4db12441f2d4a2c50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,6 +110,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -258959804395855032, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: _character
+      value: 
+      objectReference: {fileID: 8519553965087046428}
+    - target: {fileID: 2430468917139807068, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: m_Name
+      value: Collider
+      objectReference: {fileID: 0}
     - target: {fileID: 2430468917139807068, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -117,6 +125,14 @@ PrefabInstance:
     - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: _selectInputActionName
       value: Select1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: managedReferences[713893209644204319]._index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
+      propertyPath: managedReferences[713893209644204461]._index
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4282736720889467818, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: managedReferences[713893209644204319]._beamBulletPrefab
@@ -132,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: -6293472905211874275, guid: 569f626d6774d944b9107a4209c91388, type: 3}
     - target: {fileID: 4535186931121036558, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4535186931121036558, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_LocalPosition.y
@@ -184,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3fb47cd0ab1a57145a3cfa777d0e9af6, type: 3}
     - target: {fileID: 6470512518603040068, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6510670903484693075, guid: c2761f871e3a88a4489ac878b1516a11, type: 3}
       propertyPath: _moveInputName
