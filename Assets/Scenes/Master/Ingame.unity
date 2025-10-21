@@ -4764,6 +4764,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455784015}
     m_Modifications:
+    - target: {fileID: 399689513866840522, guid: 44c742741d230784d95537a6c6367f40, type: 3}
+      propertyPath: _damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a8b47cec747f06d4cb495794f1921ed7, type: 3}
     - target: {fileID: 1532266737844418206, guid: 44c742741d230784d95537a6c6367f40, type: 3}
       propertyPath: _movementAreaTransform
       value: 
@@ -6823,6 +6827,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455784015}
     m_Modifications:
+    - target: {fileID: 365833784183832322, guid: 164784a836a2f8a44a7de5b6180462ac, type: 3}
+      propertyPath: _damageSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a8b47cec747f06d4cb495794f1921ed7, type: 3}
     - target: {fileID: 1575130565462098006, guid: 164784a836a2f8a44a7de5b6180462ac, type: 3}
       propertyPath: _movementAreaTransform
       value: 
